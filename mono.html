@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>cocoon tower</title>
+        <link rel="stylesheet" href="style.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&display=swap" rel="stylesheet">
+        <style> 
+         .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            transition: transform 0.1s ease-out;
+            transform-origin: center;
+            z-index: 0;
+            }
+        img.background {
+            user-select: none;       /* 禁止选中 */
+            -webkit-user-drag: none; /* 禁止拖动（针对 Safari/Chrome） */
+            }
+
+        /* 斜杠 */
+            /* 容器居中 */
+        .slash-container {
+        position: absolute;
+        top: 39%; /* 斜杠上下位置 */
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 40px; /* 斜杠间距 */
+        z-index: 2;
+        }
+
+        /* 默认斜杠 */
+        .slash {
+        width: 6px;
+        height: 140px;
+        background: rgb(0, 0, 0);
+        transform: skewX(-20deg);
+        cursor: pointer;
+        transition: width 0.3s ease;
+        position: relative;
+        overflow: hidden; /* 添加蒙版效果 */
+        }
+
+        /* 悬浮时：展开宽度显示图片 */
+        .slash:hover,
+        .slash.active {
+        width: 246px;
+        }
+
+        /* 悬浮时：显示背景图 */
+        .slash[data-img]:hover {
+        background-image: url("");
+        }
+        .slash.hovered {
+        background-image: none; /* JS会动态设置 */
+        }
+
+        /* 添加内部图片容器样式 */
+        .slash::after {
+        content: '';
+        position: absolute;
+        top: 0%;
+        left: -10%;
+        width: 120%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        transform: skewX(20deg); /* 抵消父元素的倾斜 */
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        /* 确保图片完全覆盖 */
+        min-width: 100%;
+        min-height: 100%;
+        /* 使用 cover 确保图片填满容器 */
+        background-size: cover;
+        /* 居中显示 */
+        background-position: center;
+        }
+
+        .slash.hovered::after {
+        opacity: 1;
+        background-image: var(--bg-image);
+        }
+
+        /* 添加渐变遮罩 */
+        /* .slash::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, 
+            transparent 40%,
+            rgba(255, 255, 255, 0) 70%,
+            rgba(255, 255, 255, 0.436) 100%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        z-index: 1; 
+        } */
+
+        .slash.hovered::before {
+        opacity: 1;
+        }
+
+        /* 添加描边效果 */
+        .slash .border {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 3px solid rgb(0, 0, 0); /* 描边粗细 */
+        box-sizing: border-box;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        z-index: 2; /* 确保描边在最上层 */
+        }
+
+        .slash.hovered .border {
+        opacity: 1;
+        }
+
+        /* 简介方块样式 */
+        .popup-label {
+        position: fixed;
+        bottom: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgb(255, 92, 241);
+        padding: 3px 2px;
+        font-size: 14px;
+        color: #ffffff;
+        display: none;
+        z-index: 3;
+        width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        transition: width 0.3s ease;
+        text-align: center; /* 文字居中 */
+        font-weight: bold;
+        }
+
+        /* 简介方块展开状态 */
+        .popup-label.expanded {
+        width: 160px;
+        }
+
+        /* -----遮罩层容器------ */
+        .popup-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 999;
+        }
+
+        /* 中间内容区 */
+        .popup-content {
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 560px; /* ✅ 固定整体高度 */
+        width: 70%;
+        max-height: 80%;
+        background: white;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        border-radius: 4px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        }
+
+        /* 头部区域 */
+        .popup-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #eee;
+        padding: 0.5em 1em;
+        }
+
+        /* 关闭按钮 */
+        .popup-close {
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        }
+
+        /* 内容滚动部分 */
+        .popup-body {
+        padding: 1em;
+        overflow-y: auto;
+        flex-grow: 1;
+        }
+
+        /* 禁止选中背景（可选） */
+        body.modal-open {
+        user-select: none;
+        }
+
+         </style>
+
+    </head>
+    <body>
+        <!-- 标题 -->
+        <div class="title-wrapper">
+            <div class="title">Cocoon Tower</div>
+            <div class="title2">| FACILITIES</div>
+        </div>
+        <a class="arrow left" href="map.html" ><img src="img/arrow02.svg" alt="Left"></a>
+        <a class="arrow right" href="index.html" ><img src="img/arrow02.svg" alt="Right"></a>
+
+        <div class="nav-page">
+            <div class="slash-container">
+                <div class="slash" 
+                    data-img="img/mono01.png" 
+                    data-label="建物外観" 
+                    data-title="建筑外观" 
+                    data-content='<div style="display:flex;align-items:center;">
+                        <img src="img/mono01.png" style="width:120px;margin-right:16px;">
+                        <div>
+                        <h3>建筑外观</h3>
+                        <p>这是建筑外观的详细介绍内容。你可以在这里放图片和文字混排。</p>
+                        </div>
+                    </div>'>
+                <div class="border"></div>
+                </div>
+
+                <div class="slash" 
+                    data-img="img/mono02.png" 
+                    data-label="教室" 
+                    data-title="教室" 
+                    data-content='<div>
+                        <img src="img/mono02.png" style="width:100%;">
+                        <p>教室内部环境宽敞明亮，配备现代化教学设施。</p>
+                    </div>'>
+                <div class="border"></div>
+                </div>
+
+                <div class="slash" 
+                    data-img="img/mono03.png" 
+                    data-label="小游戏" 
+                    data-title="小游戏" 
+                    data-content='<div>
+                        <h3>点击下方按钮体验小游戏</h3>
+                        <button onclick="alert(&#39;你赢了！&#39;)">点我</button>
+                    </div>'>
+                <div class="border"></div>
+                </div>
+                <div class="slash" data-img="img/mono04.png" data-label="トイレ">
+                <div class="border"></div>
+                </div>
+                <div class="slash" data-img="img/mono05.png" data-label="階段">
+                <div class="border"></div>
+                </div>
+                <div class="slash" data-img="img/mono06.png" data-label="エレベーター">
+                <div class="border"></div>
+                </div>
+                <div class="slash" data-img="img/mono07.png" data-label="休憩スペース">
+                <div class="border"></div>
+                </div>
+                <div class="slash" data-img="img/mono08.png" data-label="50階">
+                <div class="border"></div>
+                </div>
+                <div class="slash" data-img="img/mono09.png" data-label="標識">
+                <div class="border"></div>
+                </div>
+                <div class="slash" data-img="img/mono10.png" data-label="入る学校">
+                <div class="border"></div>
+                </div>
+            </div>
+        </div>
+        <!-- 背景图 -->
+          <img class="background" src="img/wt.png" />
+        <!-- 简介方块独立放置 -->
+        <div class="popup-label"></div> 
+
+        <div class="popup-modal" id="popup">
+            <div class="popup-content">
+                <div class="popup-header">
+                <span class="popup-title" id="popupTitle">标题</span>
+                <img src="img/x.svg" class="popup-close" alt="Close">
+                </div>
+                <div class="popup-body" id="popupBody">
+                <!-- 这里是弹窗内容 -->
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+    <script src="mono.js"></script>
+
+</html>

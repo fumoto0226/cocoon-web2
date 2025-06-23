@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>map</title>
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&display=swap" rel="stylesheet">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <style>   
+      #map { 
+        width: 100%; 
+        height: 100vh; 
+        position: fixed;
+        z-index: 0;
+        top: 0;
+      }
+
+        .home-page {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        }
+
+
+
+      .custom-marker {
+        width: 48px;
+        height: 48px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        transform-origin: bottom center;
+        z-index: 2;
+        pointer-events: auto;
+      }
+
+      .custom-marker:hover {
+        transform: scale(1.1);
+      }
+
+      .custom-marker.selected {
+        transform: scale(1.2);
+      }
+
+      .mapboxgl-marker {
+        z-index: 2;
+        pointer-events: auto;
+      }
+    </style>
+  </head>
+  <body>
+          <!-- 标题 -->
+    <div class="title-wrapper">
+        <div class="title">Cocoon Tower</div>
+        <div class="title2">| LOCATION</div>
+    </div>
+
+    <a class="arrow left" href="index.html" ><img src="img/arrow02.svg" alt="Left"></a>
+    <a class="arrow right" href="mono.html" ><img src="img/arrow02.svg" alt="Right"></a>
+
+    
+    <div id="map"></div>
+    <script>
+      mapboxgl.accessToken = 'pk.eyJ1IjoiZnVtb3RvIiwiYSI6ImNtYXhqbGZ4bDBiOWwybHB3a3R5dmk3Z2kifQ.vXgn2UF6HVT0cnnQRmLO1A';
+      const cocoonCoord = [139.696950, 35.691560]; // Cocoon Tower 坐标
+
+      const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/fumoto/cmc7scka301ds01r70bw30pbf',
+        center: cocoonCoord,
+        zoom: 1.5,
+        pitch: 0,
+        bearing: 0,
+      });
+
+      // 创建自定义标记元素
+      const el = document.createElement('div');
+      el.className = 'custom-marker';
+      const img = document.createElement('img');
+      img.src = 'img/map01.svg';
+      img.style.width = '100%';
+      img.style.height = '100%';
+      el.appendChild(img);
+     
+      // 添加 Cocoon Tower 的标记
+      const marker = new mapboxgl.Marker({
+        element: el,
+        anchor: 'bottom'
+      })
+        .setLngLat(cocoonCoord)
+        .addTo(map);
+
+      // 添加定位图标的交互效果
+      const markerElement = marker.getElement();
+      markerElement.addEventListener('click', (e) => {
+        e.stopPropagation();
+        console.log('Marker clicked'); // 添加调试日志
+        el.classList.toggle('selected');
+      });
+    </script>
+
+  </body>
+</html>
