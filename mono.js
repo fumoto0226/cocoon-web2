@@ -133,5 +133,22 @@ const container = document.querySelector('.slash-container');
         document.body.classList.remove('modal-open');
       }
     });
+// 50楼小游戏///////////////
+  let currentFloor = 1;
 
-    
+  function changeFloor(delta) {
+    currentFloor += delta;
+    if (currentFloor < 1) currentFloor = 1;
+    if (currentFloor > 50) currentFloor = 50;
+    document.getElementById('floorNum').innerText = currentFloor;
+  }
+
+  function checkFloor() {
+    if (currentFloor === 50) {
+      alert("おめでとう！50階に到着しました！");
+      // 可替换为展示图片等
+    } else {
+      alert("残念！ここは " + currentFloor + " 階です！");
+    }
+  }
+// 50楼小游戏结束///////////////

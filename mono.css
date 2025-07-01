@@ -1,0 +1,81 @@
+/* 50楼游戏 */
+
+/* 弹窗容器背景 */
+.custom-popup {
+  background-color: #888; /* 灰色背景 */
+  padding: 0;
+  border: none;
+  max-width: 90vw;
+  max-height: 560px;
+  overflow: hidden;
+}
+
+/* 游戏容器以elevator.svg为基础背景图 */
+.elevator-game-wrapper {
+  position: relative;
+  width: 700px;
+  height: 500px;
+  background-image: url('img/elevator.svg');
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  margin: auto;
+  /* background-color: #888; */
+  
+}
+/* 按钮样式 */
+.elevator-button {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background-color: transparent;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+/* 上下按钮 */
+.up-btn {
+  top: 70px;
+  left: 65px;
+  background-image: url('img/up1.svg');
+}
+.down-btn {
+  top: 240px;
+  left: 65px;
+  background-image: url('img/down1.svg');
+}
+.up-btn:active {
+  background-image: url('img/up2.svg');
+}
+.down-btn:active {
+  background-image: url('img/down2.svg');
+}
+/* 数字显示 */
+.floor-display {
+  position: absolute;
+  top: 105px;
+  left: 416px;
+  font-size: 150px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 1000;
+  color: white;
+  font-family: sans-serif;
+
+}
+
+/* 结算按钮 */
+#goBtn {
+  position: absolute;
+  bottom: 70px;
+  right: 70px;
+  width: 180px;
+  height: 80px;
+  background: url('img/iku.svg');
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+}

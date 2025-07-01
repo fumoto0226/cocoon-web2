@@ -5,7 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>cocoon tower</title>
         <link rel="stylesheet" href="style.css" />
-        <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="mono.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&display=swap" >
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800;900&display=swap" rel="stylesheet">
         <style> 
          .background {
             position: absolute;
@@ -88,25 +90,6 @@
         opacity: 1;
         background-image: var(--bg-image);
         }
-
-        /* 添加渐变遮罩 */
-        /* .slash::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(to bottom, 
-            transparent 40%,
-            rgba(255, 255, 255, 0) 70%,
-            rgba(255, 255, 255, 0.436) 100%
-        );
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-        z-index: 1; 
-        } */
 
         .slash.hovered::before {
         opacity: 1;
@@ -253,8 +236,8 @@
 
                 <div class="slash" 
                     data-img="img/mono03.png" 
-                    data-label="小游戏" 
-                    data-title="小游戏" 
+                    data-label="掃除用具置き場" 
+                    data-title="掃除用具置き場" 
                     data-content='<div>
                         <h3>点击下方按钮体验小游戏</h3>
                         <button onclick="alert(&#39;你赢了！&#39;)">点我</button>
@@ -273,7 +256,16 @@
                 <div class="slash" data-img="img/mono07.png" data-label="休憩スペース">
                 <div class="border"></div>
                 </div>
-                <div class="slash" data-img="img/mono08.png" data-label="50階">
+                <div class="slash" data-img="img/mono08.png" data-label="50階" data-content= '
+                <div class="custom-popup">
+                    <div class="elevator-game-wrapper">
+                        <button class="elevator-button up-btn" onclick="changeFloor(1)"></button>
+                        <button class="elevator-button down-btn" onclick="changeFloor(-1)"></button>
+                        <div class="floor-display" id="floorNum">1</div>
+                        <button id="goBtn" onclick="checkFloor()"></button>
+                    </div>
+                </div>
+                '>
                 <div class="border"></div>
                 </div>
                 <div class="slash" data-img="img/mono09.png" data-label="標識">
