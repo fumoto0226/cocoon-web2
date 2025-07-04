@@ -137,18 +137,146 @@ const container = document.querySelector('.slash-container');
   let currentFloor = 1;
 
   function changeFloor(delta) {
-    currentFloor += delta;
-    if (currentFloor < 1) currentFloor = 1;
-    if (currentFloor > 50) currentFloor = 50;
+    // 只允许向上或向下
+    if (delta === 1) {
+      if (currentFloor < 49) {
+        currentFloor += 1;
+      } else if (currentFloor >= 49 && currentFloor < 49.9) {
+        currentFloor = Math.round((currentFloor + 0.1) * 10) / 10;
+        if (currentFloor > 49.9) currentFloor = 49.9;
+      } else if (currentFloor >= 49.9 && currentFloor < 49.99) {
+        currentFloor = Math.round((currentFloor + 0.01) * 100) / 100;
+        if (currentFloor > 49.99) currentFloor = 49.99;
+      } else if (currentFloor >= 49.99 && currentFloor < 49.999) {
+        currentFloor = Math.round((currentFloor + 0.001) * 1000) / 1000;
+        if (currentFloor > 49.999) currentFloor = 49.999;
+      } else if (currentFloor >= 49.999 && currentFloor < 49.9999) {
+        currentFloor = Math.round((currentFloor + 0.0001) * 10000) / 10000;
+        if (currentFloor > 49.9999) currentFloor = 49.9999;
+      } else if (currentFloor >= 49.9999 && currentFloor < 49.99999) {
+        currentFloor = Math.round((currentFloor + 0.00001) * 100000) / 100000;
+        if (currentFloor > 49.99999) currentFloor = 49.99999;
+      } else if (currentFloor >= 49.99999 && currentFloor < 49.999999) {
+        currentFloor = Math.round((currentFloor + 0.000001) * 1000000) / 1000000;
+        if (currentFloor > 49.999999) currentFloor = 49.999999;
+      } else if (currentFloor >= 49.999999 && currentFloor < 49.9999999) {
+        currentFloor = Math.round((currentFloor + 0.0000001) * 10000000) / 10000000;
+        if (currentFloor > 49.9999999) currentFloor = 49.9999999;
+      } else if (currentFloor >= 49.9999999 && currentFloor < 49.99999999) {
+        currentFloor = Math.round((currentFloor + 0.00000001) * 100000000) / 100000000;
+        if (currentFloor > 49.99999999) currentFloor = 49.99999999;
+      } else if (currentFloor >= 49.99999999 && currentFloor < 49.999999999) {
+        currentFloor = Math.round((currentFloor + 0.000000001) * 1000000000) / 1000000000;
+        if (currentFloor > 49.999999999) currentFloor = 49.999999999;
+      } else if (currentFloor >= 49.999999999 && currentFloor < 49.9999999999) {
+        currentFloor = Math.round((currentFloor + 0.0000000001) * 10000000000) / 10000000000;
+        if (currentFloor > 49.9999999999) currentFloor = 49.9999999999;
+      } else if (currentFloor >= 49.9999999999 && currentFloor < 50) {
+        currentFloor = 50;
+      }
+    } else if (delta === -1) {
+      // 向下
+      if (currentFloor === 50) {
+        currentFloor = 49.9999999999;
+      } else if (currentFloor > 49.9999999999) {
+        currentFloor = 49.9999999999;
+      } else if (currentFloor > 49.999999999) {
+        currentFloor = 49.999999999;
+      } else if (currentFloor > 49.99999999) {
+        currentFloor = 49.99999999;
+      } else if (currentFloor > 49.9999999) {
+        currentFloor = 49.9999999;
+      } else if (currentFloor > 49.999999) {
+        currentFloor = 49.999999;
+      } else if (currentFloor > 49.99999) {
+        currentFloor = 49.99999;
+      } else if (currentFloor > 49.9999) {
+        currentFloor = 49.9999;
+      } else if (currentFloor > 49.999) {
+        currentFloor = 49.999;
+      } else if (currentFloor > 49.99) {
+        currentFloor = 49.99;
+      } else if (currentFloor > 49.9) {
+        currentFloor = 49.9;
+      } else if (currentFloor > 49) {
+        currentFloor = 49;
+      } else if (currentFloor > 1) {
+        currentFloor -= 1;
+      } else {
+        currentFloor = 1;
+      }
+    }
     document.getElementById('floorNum').innerText = currentFloor;
   }
 
   function checkFloor() {
     if (currentFloor === 50) {
-      alert("おめでとう！50階に到着しました！");
-      // 可替换为展示图片等
+      // 检查是否已存在图片，避免重复添加
+      if (!document.getElementById('fifty-img')) {
+        const popupContent = document.querySelector('.popup-content');
+        // 创建图片容器
+        const imgWrapper = document.createElement('div');
+        imgWrapper.id = 'fifty-img-wrapper';
+        imgWrapper.style.position = 'absolute';
+        imgWrapper.style.top = '50%';
+        imgWrapper.style.left = '50%';
+        imgWrapper.style.transform = 'translate(-50%, -50%)';
+        imgWrapper.style.zIndex = '100';
+        imgWrapper.style.width = 'auto';
+        imgWrapper.style.height = 'auto';
+        // 创建图片
+        const img = document.createElement('img');
+        img.src = 'img/50kai.png';
+        img.id = 'fifty-img';
+        img.style.maxWidth = '150%';
+        img.style.maxHeight = '120vh';
+        img.style.display = 'block';
+        img.style.top = '50px';
+        img.style.left = '150px';
+
+        // 创建关闭按钮
+        const closeBtn = document.createElement('button');
+        closeBtn.innerText = '×';
+        closeBtn.style.position = 'absolute';
+        closeBtn.style.top = '-18px';
+        closeBtn.style.right = '-18px';
+        closeBtn.style.background = 'rgba(0,0,0,0.5)';
+        closeBtn.style.color = '#fff';
+        closeBtn.style.border = 'none';
+        closeBtn.style.fontSize = '24px';
+        closeBtn.style.cursor = 'pointer';
+        closeBtn.style.width = '36px';
+        closeBtn.style.height = '36px';
+        closeBtn.style.borderRadius = '50%';
+        closeBtn.onclick = function() {
+          imgWrapper.remove();
+        };
+        imgWrapper.appendChild(img);
+        imgWrapper.appendChild(closeBtn);
+        popupContent.appendChild(imgWrapper);
+      }
     } else {
       alert("残念！ここは " + currentFloor + " 階です！");
     }
   }
+
+  function gotoFifty() {
+    currentFloor = 50;
+    document.getElementById('floorNum').innerText = currentFloor;
+  }
+
+  // 保证关闭popup时图片也消失
+  const popupCloseBtn = document.querySelector('.popup-close');
+  if (popupCloseBtn) {
+    popupCloseBtn.addEventListener('click', () => {
+      const imgWrapper = document.getElementById('fifty-img-wrapper');
+      if (imgWrapper) imgWrapper.remove();
+    });
+  }
+  popup.addEventListener('click', function(e) {
+    if (e.target === popup) {
+      const imgWrapper = document.getElementById('fifty-img-wrapper');
+      if (imgWrapper) imgWrapper.remove();
+    }
+  });
 // 50楼小游戏结束///////////////

@@ -55,14 +55,15 @@
 /* 数字显示 */
 .floor-display {
   position: absolute;
-  top: 105px;
-  left: 416px;
-  font-size: 150px;
+  top: 195px;
+  left: 452px;
+  transform: translate(-50%, -50%);  /* 向左和向上各移动一半 */
+  font-size: 148px !important;
   font-family: 'Inter', sans-serif;
-  font-weight: 1000;
+  font-weight: 160;
   color: white;
-  font-family: sans-serif;
-
+  user-select: none;
+  pointer-events: none;
 }
 
 /* 结算按钮 */
@@ -79,3 +80,8 @@
   border: none;
   cursor: pointer;
 }
+
+/* 确保不会影响标题字体 */
+/* .title, .title2 {
+    font-family: "Bowlby One", Helvetica !important;
+} */
