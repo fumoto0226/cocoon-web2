@@ -109,8 +109,8 @@ const container = document.querySelector('.slash-container');
     // 点击每个 slash 元素
     document.querySelectorAll('.slash').forEach(item => {
     item.addEventListener('click', () => {
-        const title = item.getAttribute('data-title') || '无标题';
-        const content = item.getAttribute('data-content') || '无内容';
+        const title = item.getAttribute('data-title') || '';
+        const content = item.getAttribute('data-content') || '';
 
         popupTitle.textContent = title;
         popupBody.innerHTML = content; // 可以填 HTML 也可以纯文字
