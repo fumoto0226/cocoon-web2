@@ -159,24 +159,49 @@ const container = document.querySelector('.slash-container');
       } else if (currentFloor >= 49.99999 && currentFloor < 49.999999) {
         currentFloor = Math.round((currentFloor + 0.000001) * 1000000) / 1000000;
         if (currentFloor > 49.999999) currentFloor = 49.999999;
+        //
       } else if (currentFloor >= 49.999999 && currentFloor < 49.9999999) {
-        currentFloor = Math.round((currentFloor + 0.0000001) * 10000000) / 10000000;
+        currentFloor = Math.round((currentFloor + 0.0000009) * 10000000) / 10000000;
         if (currentFloor > 49.9999999) currentFloor = 49.9999999;
       } else if (currentFloor >= 49.9999999 && currentFloor < 49.99999999) {
-        currentFloor = Math.round((currentFloor + 0.00000001) * 100000000) / 100000000;
+        currentFloor = Math.round((currentFloor + 0.00000009) * 100000000) / 100000000;
         if (currentFloor > 49.99999999) currentFloor = 49.99999999;
       } else if (currentFloor >= 49.99999999 && currentFloor < 49.999999999) {
-        currentFloor = Math.round((currentFloor + 0.000000001) * 1000000000) / 1000000000;
+        currentFloor = Math.round((currentFloor + 0.000000009) * 1000000000) / 1000000000;
         if (currentFloor > 49.999999999) currentFloor = 49.999999999;
       } else if (currentFloor >= 49.999999999 && currentFloor < 49.9999999999) {
-        currentFloor = Math.round((currentFloor + 0.0000000001) * 10000000000) / 10000000000;
+        currentFloor = Math.round((currentFloor + 0.0000000009) * 10000000000) / 10000000000;
         if (currentFloor > 49.9999999999) currentFloor = 49.9999999999;
-      } else if (currentFloor >= 49.9999999999 && currentFloor < 50) {
+        //
+      } else if (currentFloor >= 49.9999999999 && currentFloor < 49.99999999999) {
+        currentFloor = Math.round((currentFloor + 0.00000000009) * 100000000000) / 100000000000;
+        if (currentFloor > 49.99999999999) currentFloor = 49.99999999999;
+      } else if (currentFloor >= 49.99999999999 && currentFloor < 49.999999999999) {
+        currentFloor = Math.round((currentFloor + 0.000000000009) * 1000000000000) / 1000000000000;
+        if (currentFloor > 49.999999999999) currentFloor = 49.99999999999;
+      } else if (currentFloor >= 49.999999999999 && currentFloor < 49.9999999999999) {
+        currentFloor = Math.round((currentFloor + 0.000000000009) * 10000000000000) / 10000000000000;
+        if (currentFloor > 49.9999999999999) currentFloor = 49.9999999999999;
+      } else if (currentFloor >= 49.9999999999999 && currentFloor < 49.99999999999999) {
+        currentFloor = Math.round((currentFloor + 0.0000000000009) * 100000000000000) / 100000000000000;
+        if (currentFloor > 49.99999999999999) currentFloor = 49.99999999999999;
+
+
+      } else if (currentFloor >= 49.9999999999999999 && currentFloor < 50) {
         currentFloor = 50;
       }
     } else if (delta === -1) {
       // 向下
       if (currentFloor === 50) {
+        currentFloor = 49.99999999999999;
+     
+      } else if (currentFloor > 49.99999999999999) {
+        currentFloor = 49.9999999999999;
+      } else if (currentFloor > 49.9999999999999) {
+        currentFloor = 49.999999999999;
+      } else if (currentFloor > 49.999999999999) {
+        currentFloor = 49.99999999999;
+      } else if (currentFloor > 49.99999999999) {
         currentFloor = 49.9999999999;
       } else if (currentFloor > 49.9999999999) {
         currentFloor = 49.9999999999;
@@ -214,46 +239,84 @@ const container = document.querySelector('.slash-container');
       // 检查是否已存在图片，避免重复添加
       if (!document.getElementById('fifty-img')) {
         const popupContent = document.querySelector('.popup-content');
-        // 创建图片容器
+        
+        // 创建图片容器 - 使用相对定位，基于popup-content
         const imgWrapper = document.createElement('div');
         imgWrapper.id = 'fifty-img-wrapper';
         imgWrapper.style.position = 'absolute';
-        imgWrapper.style.top = '50%';
-        imgWrapper.style.left = '50%';
-        imgWrapper.style.transform = 'translate(-50%, -50%)';
+        imgWrapper.style.top = '0';
+        imgWrapper.style.left = '0';
+        imgWrapper.style.width = '100%';
+        imgWrapper.style.height = '100%';
         imgWrapper.style.zIndex = '100';
-        imgWrapper.style.width = 'auto';
-        imgWrapper.style.height = 'auto';
+        imgWrapper.style.display = 'flex';
+        imgWrapper.style.alignItems = 'center';
+        imgWrapper.style.justifyContent = 'center';
+        
+        // 创建图片容器 - 相对定位，包含图片和关闭按钮
+        const imgContainer = document.createElement('div');
+        imgContainer.style.position = 'relative';
+        imgContainer.style.display = 'inline-block';
+        imgContainer.style.maxWidth = '78%';
+        imgContainer.style.maxHeight = '90%';
+        
+        // 创建文字元素
+        const textElement = document.createElement('div');
+        textElement.innerHTML = 'やった〜！🎉<br>50階の景色、ついに見えたね！';
+        textElement.style.position = 'absolute';
+        textElement.style.top = '50px';
+        textElement.style.left = '50%';
+        textElement.style.transform = 'translateX(-50%)';
+        textElement.style.color = '#333';
+        textElement.style.fontSize = '16px';
+        textElement.style.fontWeight = 'bold';
+        textElement.style.textAlign = 'center';
+        textElement.style.whiteSpace = 'nowrap';
+        textElement.style.zIndex = '102';
+        textElement.style.opacity = '0';
+        textElement.style.transition = 'opacity 0.8s ease-in-out';
+        
         // 创建图片
         const img = document.createElement('img');
         img.src = 'img/50kai.png';
         img.id = 'fifty-img';
-        img.style.maxWidth = '150%';
-        img.style.maxHeight = '120vh';
+        img.style.maxWidth = '100%';
+        img.style.maxHeight = '100%';
         img.style.display = 'block';
-        img.style.top = '50px';
-        img.style.left = '150px';
+        img.style.objectFit = 'contain';
 
-        // 创建关闭按钮
+        // 创建关闭按钮 - 相对于图片容器定位
         const closeBtn = document.createElement('button');
         closeBtn.innerText = '×';
         closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '-18px';
-        closeBtn.style.right = '-18px';
-        closeBtn.style.background = 'rgba(0,0,0,0.5)';
+        closeBtn.style.top = '15px';
+        closeBtn.style.right = '15px';
+        closeBtn.style.background = 'rgba(0,0,0,0.7)';
         closeBtn.style.color = '#fff';
         closeBtn.style.border = 'none';
-        closeBtn.style.fontSize = '24px';
+        closeBtn.style.fontSize = '20px';
         closeBtn.style.cursor = 'pointer';
-        closeBtn.style.width = '36px';
-        closeBtn.style.height = '36px';
+        closeBtn.style.width = '30px';
+        closeBtn.style.height = '30px';
         closeBtn.style.borderRadius = '50%';
+        closeBtn.style.display = 'flex';
+        closeBtn.style.alignItems = 'center';
+        closeBtn.style.justifyContent = 'center';
+        closeBtn.style.zIndex = '101';
         closeBtn.onclick = function() {
           imgWrapper.remove();
         };
-        imgWrapper.appendChild(img);
-        imgWrapper.appendChild(closeBtn);
+        
+        imgContainer.appendChild(textElement);
+        imgContainer.appendChild(img);
+        imgContainer.appendChild(closeBtn);
+        imgWrapper.appendChild(imgContainer);
         popupContent.appendChild(imgWrapper);
+        
+        // 触发文字动画
+        setTimeout(() => {
+          textElement.style.opacity = '1';
+        }, 100);
       }
     } else {
       alert("残念！ここは " + currentFloor + " 階です！");

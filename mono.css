@@ -14,7 +14,7 @@
 .elevator-game-wrapper {
   position: relative;
   width: 700px;
-  height: 500px;
+  height: 485px;
   background-image: url('img/elevator.svg');
   background-size: contain;
   background-position: center center;
