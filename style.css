@@ -104,6 +104,23 @@ body {
   right: 40px;
 }
 
+.studentButton {
+  position: absolute;
+  width: 146px;
+  height: 35px;
+  background-color: #3a28ff;
+  top: 620px;
+  left: 50%;                      /* 先移到中间 */
+  transform: translateX(-50%);    /* 再往左偏移一半宽度，实现真正居中 */
+  border-radius: 45px;     /* 圆角 */
+
+  color: white;            /* 字体颜色 */
+  text-align: center;      /* 水平居中 */
+  line-height: 37px;      
+  font-weight: bold;
+  text-decoration: none;   /* 去掉下划线 */
+}
+
 .arrow:hover {
   transform: translateY(-50%) scale(1.21);
 }

@@ -6,13 +6,75 @@
         <title>cocoon tower</title>
         <link rel="stylesheet" href="style.css" />
         <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&display=swap" rel="stylesheet">
+        <style>
+                    body {
+        background-color: #ffffff;
+        color: #000000;
+        font-family: 'Courier New', Courier, monospace;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        }
+
+        .controls {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        }
+
+        input#userInput {
+        display: none;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 16px;
+        width: 200px;
+        text-transform: uppercase;
+        padding: 5px;
+        margin-right: 10px;
+        }
+
+        button {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 16px;
+        padding: 5px 10px;
+        cursor: pointer;
+        }
+
+        /* Container for ASCII art */
+        #asciiContainer {
+        white-space: pre;
+        text-align: center;
+        position: absolute;
+        top: 110px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 14px;
+        letter-spacing: 2px;
+        line-height: 1.0;
+        }
+
+        /* Optional subtle glow effect */
+        #asciiContainer span {
+        text-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
+        }
+        </style>
 
     </head>
     <body>
         <div class="home-page">
             <div class="container"> <!-- 容器 -->
 
-                <canvas id="asciiCanvas"></canvas>
+                <div class="controls">
+                <input 
+                    type="text" 
+                    id="userInput" 
+                    value="HAL" 
+                    placeholder="ENTER WORD (A-Z)"
+                />
+                <div id="updateButton"></div>
+                </div>
+                <pre id="asciiContainer"></pre>
 
                 <!-- 标题 -->
                 <div class="title-wrapper">
@@ -22,7 +84,10 @@
             </div>
             <a class="arrow left" href="mono.html" ><img src="img/arrow02.svg" alt="Left"></a>
             <a class="arrow right" href="index.html" ><img src="img/arrow02.svg" alt="Right"></a>
+            <a class="studentButton" href="student.html" >学生作品へ</a>
+            
 
         </div>       
     </body>
+    <script src="hal.js"></script>
 </html>
