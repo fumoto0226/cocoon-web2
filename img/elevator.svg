@@ -1,5 +1,7 @@
 <svg width="1573" height="1013" viewBox="0 0 1573 1013" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect x="9.83594" y="9.77734" width="1552.71" height="992.826" rx="46" fill="url(#paint0_linear_218_358)" stroke="#646464" stroke-width="19"/>
+<path d="M1481.64 957.885C1481.68 957.876 1481.72 957.868 1491.9 960.725C1502.08 963.582 1522.4 969.305 1532.72 972.006C1543.04 974.707 1542.75 974.213 1542.45 973.704" stroke="#606060" stroke-width="3" stroke-linecap="round"/>
+<path d="M1524.17 952.71C1523.92 952.911 1523.67 953.113 1519.25 956.437C1514.84 959.761 1506.27 966.202 1500.84 970.423C1495.41 974.644 1493.37 976.451 1492.09 977.669C1490.82 978.887 1490.37 979.463 1489.63 980.493" stroke="#606060" stroke-width="3" stroke-linecap="round"/>
 <mask id="mask0_218_358" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="596" y="108" width="829" height="575">
 <rect x="596.269" y="108.75" width="828.146" height="573.975" rx="54" fill="black"/>
 </mask>

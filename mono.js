@@ -343,3 +343,129 @@ const container = document.querySelector('.slash-container');
     }
   });
 // 50楼小游戏结束///////////////
+
+// 动态调整休憩スペース点击区域大小的函数
+function adjustYasumiClickAreas() {
+  const yasumiGameWrapper = document.querySelector('.yasumi-game-wrapper');
+  const yasumiBg = document.querySelector('.yasumi-bg');
+  const clickAreas = document.querySelectorAll('.yasumi-click-area');
+  
+  if (!yasumiGameWrapper || !yasumiBg || clickAreas.length === 0) {
+    return;
+  }
+  
+  // 获取容器的实际尺寸
+  const containerWidth = yasumiGameWrapper.offsetWidth;
+  const containerHeight = yasumiGameWrapper.offsetHeight;
+  
+  // 获取背景图片的实际显示尺寸
+  const bgRect = yasumiBg.getBoundingClientRect();
+  const bgWidth = bgRect.width;
+  const bgHeight = bgRect.height;
+  
+  // 计算缩放比例（基于背景图片的实际显示尺寸）
+  const scaleX = bgWidth / 800; // 假设背景图片原始宽度为800px
+  const scaleY = bgHeight / 600; // 假设背景图片原始高度为600px
+  const scale = Math.min(scaleX, scaleY); // 使用较小的缩放比例
+  
+  // 调整每个点击区域的大小
+  clickAreas.forEach(area => {
+    const baseWidth = 60; // 基础宽度
+    const baseHeight = 120; // 基础高度
+    
+    area.style.width = (baseWidth * scale) + 'px';
+    area.style.height = (baseHeight * scale) + 'px';
+  });
+}
+
+// 监听窗口大小变化
+window.addEventListener('resize', adjustYasumiClickAreas);
+
+// 当休憩スペース弹窗打开时调整区域大小
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('slash') && e.target.getAttribute('data-label') === '休憩スペース') {
+    // 等待弹窗内容加载完成后调整
+    setTimeout(adjustYasumiClickAreas, 100);
+  }
+});
+
+// 休憩スペース小游戏功能
+let yasumiPeopleCount = 0;
+
+// 定义每个区域对应的hito图片
+const yasumiAreaHitos = {
+  '1': ['img/hito/chong02.png'],
+  '2': ['img/hito04.png', 'img/hito05.png'], // 区域2对应hito4,5
+  '3': ['img/hito/chong01.png'], 
+  '4': ['img/hito07.png', 'img/hito08.png'], // 区域4对应hito7,8
+  '5': ['img/hito09.png', 'img/hito10.png'], // 区域5对应hito9,10
+  '6': ['img/hito11.png', 'img/hito12.png'], // 区域6对应hito11,12
+  '7': ['img/hito/chong03.png'],
+  '8': ['img/hito/chong03.png'],
+  '9': ['img/hito/chong03.png'],
+  '10': ['img/hito/chong03.png'],
+};
+
+// 为休憩スペース点击区域添加事件监听器
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('yasumi-click-area')) {
+    const area = e.target.getAttribute('data-area');
+    
+    // 检查该区域是否已经有显示的人物
+    const existingHito = e.target.querySelector('.yasumi-hito');
+    if (existingHito) {
+      return; // 如果已经有显示的人物，不重复点击
+    }
+    
+    // 增加人数
+    yasumiPeopleCount++;
+    const countElement = document.getElementById('yasumiPeopleCount');
+    if (countElement) {
+      countElement.textContent = yasumiPeopleCount;
+    }
+    
+    // 从对应区域的可选图片中随机选择一个
+    const areaHitos = yasumiAreaHitos[area] || [];
+    if (areaHitos.length === 0) {
+      return; // 如果该区域没有对应的图片，不执行
+    }
+    const randomImage = areaHitos[Math.floor(Math.random() * areaHitos.length)];
+    
+    // 创建人物方块
+    const hito = document.createElement('img');
+    hito.src = randomImage;
+    hito.className = 'yasumi-hito';
+    hito.style.position = 'absolute';
+    hito.style.top = '0';
+    hito.style.left = '0';
+    // 人物方块会完全填满点击区域，无空隙
+    
+    // 将人物方块添加到点击区域
+    e.target.appendChild(hito);
+    
+    // 显示人物方块
+    setTimeout(() => {
+      hito.classList.add('show');
+    }, 10);
+    
+    // 7秒后开始淡出
+    setTimeout(() => {
+      hito.classList.add('fade-out');
+      
+      // 淡出动画完成后移除元素并减少人数
+      setTimeout(() => {
+        hito.remove();
+        yasumiPeopleCount--;
+        if (countElement) {
+          countElement.textContent = yasumiPeopleCount;
+        }
+      }, 500); // 与CSS过渡时间相同
+    }, 7000);
+    
+    // 添加点击效果
+    e.target.style.backgroundColor = 'rgba(255, 255, 0, 0.3)';
+    setTimeout(() => {
+      e.target.style.backgroundColor = 'transparent';
+    }, 200);
+  }
+});

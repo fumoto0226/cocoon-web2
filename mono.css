@@ -85,3 +85,76 @@
 /* .title, .title2 {
     font-family: "Bowlby One", Helvetica !important;
 } */
+
+/* 休憩スペース小游戏样式 */
+.yasumi-game-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #f5f5f5;
+  overflow: hidden;
+  /* 确保容器能够正确缩放背景图片 */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* 休憩スペース背景图容器和图片 */
+.yasumi-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.yasumi-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.yasumi-counter {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.715);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 3px;
+  font-weight: bold;
+  z-index: 4;
+  font-size: 16px;
+}
+
+.yasumi-click-area {
+  position: absolute;
+  /* 宽高、top、left 由style内联百分比控制 */
+  background-color: rgba(0, 200, 255, 0.5); /* 开发时可见，正式可去掉 */
+  border: 2px dashed white;                 /* 开发时可见，正式可去掉 */
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+
+
+/* 人物方块样式 */
+.yasumi-hito {
+  position: absolute;
+  width: 100%; /* 填满整个点击区域 */
+  height: 100%; /* 填满整个点击区域 */
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  object-fit: cover; /* 确保图片填满容器 */
+}
+
+.yasumi-hito.show {
+  opacity: 1;
+}
+
+.yasumi-hito.fade-out {
+  opacity: 0;
+}
