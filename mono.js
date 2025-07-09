@@ -394,18 +394,19 @@ let yasumiPeopleCount = 0;
 
 // 定义每个区域对应的hito图片
 const yasumiAreaHitos = {
-  '1': ['img/hito/chong02.png', 'img/hito/masuda04-3.png',],
+  '1': ['img/hito/chong02.png', 'img/hito/masuda04-3.png','img/hito/so04-3.png'],
   '2': ['img/hito04.png', 'img/hito05.png'], // 区域2对应hito4,5
-  '3': ['img/hito/chong01.png', ], 
+  '3': ['img/hito/chong01.png', 'img/hito/so01.png'], 
   '4': ['img/hito/takei01.png', 'img/hito/masuda03.png'], // 区域4对应hito7,8
   '5': ['img/hito09.png', 'img/hito10.png'], // 区域5对应hito9,10
-  '6': [ 'img/hito/takei02-3.png',], 
-  '7': ['img/hito/chong03-2.png', 'img/hito/masuda02-2.png'],
-  '8': ['img/hito/chong03-2.png', 'img/hito/masuda02-2.png', 'img/hito/masuda04.png', 'img/hito/takei03-2.png'],
-  '9': ['img/hito/chong03.png', 'img/hito/masuda02.png', 'img/hito/masuda04-2.png',],
-  '10': ['img/hito/chong03.png', 'img/hito/masuda02.png', 'img/hito/takei02.png'],
+  '6': ['img/hito/takei02-3.png',  'img/hito/so02-3.png'], 
+  '7': [ 'img/hito/takei02-2.png', 'img/hito/chong03-2.png', 'img/hito/so02-2.png'],
+  '8': ['img/hito/masuda06-2.png', 'img/hito/masuda04.png', 'img/hito/takei03-2.png'],
+  '9': ['img/hito/so03.png', 'img/hito/masuda05.png', 'img/hito/masuda04-2.png',],
+  '10': ['img/hito/chong03.png', 'img/hito/masuda02.png', 'img/hito/takei04.png'],
   '11': ['img/hito/masuda01.png'],
   '12': ['img/hito/chong03.png'],
+  '13': ['img/hito/mimi01.png'],
 };
 
 // 为休憩スペース点击区域添加事件监听器
@@ -464,10 +465,6 @@ document.addEventListener('click', function(e) {
       }, 500); // 与CSS过渡时间相同
     }, 7000);
     
-    // 添加点击效果
-    e.target.style.backgroundColor = 'rgba(255, 255, 0, 0.3)';
-    setTimeout(() => {
-      e.target.style.backgroundColor = 'transparent';
-    }, 200);
+   
   }
 });
