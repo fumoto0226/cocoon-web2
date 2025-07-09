@@ -394,16 +394,18 @@ let yasumiPeopleCount = 0;
 
 // 定义每个区域对应的hito图片
 const yasumiAreaHitos = {
-  '1': ['img/hito/chong02.png'],
+  '1': ['img/hito/chong02.png', 'img/hito/masuda04-3.png',],
   '2': ['img/hito04.png', 'img/hito05.png'], // 区域2对应hito4,5
-  '3': ['img/hito/chong01.png'], 
-  '4': ['img/hito07.png', 'img/hito08.png'], // 区域4对应hito7,8
+  '3': ['img/hito/chong01.png', ], 
+  '4': ['img/hito/takei01.png', 'img/hito/masuda03.png'], // 区域4对应hito7,8
   '5': ['img/hito09.png', 'img/hito10.png'], // 区域5对应hito9,10
-  '6': ['img/hito11.png', 'img/hito12.png'], // 区域6对应hito11,12
-  '7': ['img/hito/chong03.png'],
-  '8': ['img/hito/chong03.png'],
-  '9': ['img/hito/chong03.png'],
-  '10': ['img/hito/chong03.png'],
+  '6': [ 'img/hito/takei02-3.png',], 
+  '7': ['img/hito/chong03-2.png', 'img/hito/masuda02-2.png'],
+  '8': ['img/hito/chong03-2.png', 'img/hito/masuda02-2.png', 'img/hito/masuda04.png', 'img/hito/takei03-2.png'],
+  '9': ['img/hito/chong03.png', 'img/hito/masuda02.png', 'img/hito/masuda04-2.png',],
+  '10': ['img/hito/chong03.png', 'img/hito/masuda02.png', 'img/hito/takei02.png'],
+  '11': ['img/hito/masuda01.png'],
+  '12': ['img/hito/chong03.png'],
 };
 
 // 为休憩スペース点击区域添加事件监听器
