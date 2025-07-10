@@ -24,30 +24,75 @@
         overflow: hidden;
         }
 
-
-
-      .custom-marker {
-        width: 48px;
-        height: 48px;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-        transform-origin: bottom center;
-        z-index: 2;
-        pointer-events: auto;
-      }
-
-      .custom-marker:hover {
-        transform: scale(1.1);
-      }
-
-      .custom-marker.selected {
-        transform: scale(1.2);
-      }
-
       .mapboxgl-marker {
         z-index: 2;
         pointer-events: auto;
       }
+
+      /* 地球图标样式 */
+      #earthButton {
+        position: fixed;
+        top: 30px;
+        right: 40px;
+        width: 36px;
+        height: 36px;
+        background: rgba(103, 235, 255, 0.9);
+        border-radius: 30%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
+
+      #earthButton:hover {
+        background: rgba(103, 235, 255, 0.9);
+        transform: scale(1.1);
+      }
+
+      #earthButton:active {
+        transform: scale(0.95);
+      }
+
+      #earthButton img {
+        width: 24px;
+        height: 24px;
+        pointer-events: none;
+      }
+
+      /* 地址介绍栏样式 */
+      #addressBar {
+        position: fixed;
+        bottom: 36px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        align-items: center;
+        gap: 12px;
+        background: #4740ff;
+        color: white;
+        font-weight: bold;
+        font-size: 14.5px;
+        border-radius: 999px;
+        padding: 10px 30px;
+        z-index: 1000;
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      #addressBar.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      #addressBar img {
+        width: 20px;
+        height: 20px;
+        filter: brightness(0) invert(1); /* 将图标变为白色 */
+      }
+
     </style>
   </head>
   <body>
@@ -66,8 +111,20 @@
     <a class="arrow left" href="index.html" ><img src="img/arrow02.svg" alt="Left"></a>
     <a class="arrow right" href="mono.html" ><img src="img/arrow02.svg" alt="Right"></a>
 
+    <!-- 地球图标 - 回到初始视图 -->
+    <div id="earthButton">
+      <img src="img/earth.svg" alt="回到初始视图">
+    </div>
+
     
     <div id="map"></div>
+    
+    <!-- 地址介绍栏 -->
+    <div id="addressBar">
+      <img src="img/location.svg" alt="location icon">
+      <span>1-7-3 Nishi-Shinjuku, Shinjuku-ku, Tokyo</span>
+    </div>
+    
     <script>
       mapboxgl.accessToken = 'pk.eyJ1IjoiZnVtb3RvIiwiYSI6ImNtYXhqbGZ4bDBiOWwybHB3a3R5dmk3Z2kifQ.vXgn2UF6HVT0cnnQRmLO1A';
       const cocoonCoord = [139.696950, 35.691560]; // Cocoon Tower 坐标
@@ -81,16 +138,15 @@
         bearing: 0,
       });
 
-      // 创建自定义标记元素
+      // 创建空的标记元素用于地理定位
       const el = document.createElement('div');
       el.className = 'custom-marker';
-      const img = document.createElement('img');
-      img.src = 'img/map01.svg';
-      img.style.width = '100%';
-      img.style.height = '100%';
-      el.appendChild(img);
+      el.style.width = '1px';
+      el.style.height = '1px';
+      el.style.opacity = '0';
+      el.style.pointerEvents = 'none';
      
-      // 添加 Cocoon Tower 的标记
+      // 添加 Cocoon Tower 的标记（空的，用于地理定位）
       const marker = new mapboxgl.Marker({
         element: el,
         anchor: 'bottom'
@@ -98,12 +154,133 @@
         .setLngLat(cocoonCoord)
         .addTo(map);
 
-      // 添加定位图标的交互效果
-      const markerElement = marker.getElement();
-      markerElement.addEventListener('click', (e) => {
+      // 创建独立的 SVG 元素用于交互
+      const svgElement = document.createElement('div');
+      svgElement.id = 'cocoon-svg';
+      svgElement.style.position = 'absolute';
+      svgElement.style.width = '48px';
+      svgElement.style.height = '48px';
+      svgElement.style.cursor = 'pointer';
+      svgElement.style.transition = 'transform 0.3s ease';
+      svgElement.style.transformOrigin = 'bottom center';
+      svgElement.style.zIndex = '1000';
+      svgElement.style.pointerEvents = 'auto';
+      svgElement.style.display = 'flex';
+      svgElement.style.alignItems = 'center';
+      svgElement.style.justifyContent = 'center';
+      
+      const svgImg = document.createElement('img');
+      svgImg.src = 'img/map01.svg';
+      svgImg.style.width = '100%';
+      svgImg.style.height = '100%';
+      svgImg.style.pointerEvents = 'none';
+      svgElement.appendChild(svgImg);
+      
+      // 将 SVG 元素添加到页面
+      document.body.appendChild(svgElement);
+
+      // 更新 SVG 元素位置的函数
+      function updateSvgPosition() {
+        const point = map.project(cocoonCoord);
+        const container = map.getContainer();
+        const rect = container.getBoundingClientRect();
+        
+        svgElement.style.left = (rect.left + point.x - 24) + 'px'; // 24px 是宽度的一半
+        svgElement.style.top = (rect.top + point.y - 48) + 'px'; // 48px 是高度，因为锚点在底部
+      }
+
+      // 监听地图移动和缩放事件，更新 SVG 位置
+      map.on('move', updateSvgPosition);
+      map.on('zoom', updateSvgPosition);
+      map.on('resize', updateSvgPosition);
+
+      // 初始化 SVG 位置
+      updateSvgPosition();
+
+      // 为 SVG 元素添加交互效果
+      svgElement.addEventListener('click', (e) => {
         e.stopPropagation();
-        console.log('Marker clicked'); // 添加调试日志
-        el.classList.toggle('selected');
+        console.log('SVG clicked');
+        
+        // 添加点击动画效果
+        svgElement.style.transform = 'scale(1.2)';
+        
+        // 以标记坐标为中心放大到 zoom 15
+        map.flyTo({
+          center: cocoonCoord,
+          zoom: 15,
+          duration: 2000,
+          curve: 1.42,
+          speed: 1.2
+        });
+        
+        // 移除选中状态
+        setTimeout(() => {
+          svgElement.style.transform = 'scale(1)';
+        }, 2000);
+      });
+
+      // 添加悬停效果
+      svgElement.addEventListener('mouseenter', () => {
+        svgElement.style.transform = 'scale(1.1)';
+      });
+
+      svgElement.addEventListener('mouseleave', () => {
+        svgElement.style.transform = 'scale(1)';
+      });
+
+      // 地址介绍栏显示逻辑
+      function checkView() {
+        const bounds = map.getBounds();
+        const zoom = map.getZoom();
+
+        const target = [139.696950, 35.691560];
+
+        const isInside = bounds.contains(target);
+        const isZoomed = zoom >= 15;
+
+        const infoBar = document.getElementById('addressBar');
+
+        if (isInside && isZoomed) {
+          // 显示地址栏
+          if (infoBar.style.display === 'none' || infoBar.style.display === '') {
+            infoBar.style.display = 'flex';
+            // 强制重排，然后添加动画类
+            infoBar.offsetHeight;
+            infoBar.classList.add('show');
+          }
+        } else {
+          // 隐藏地址栏
+          if (infoBar.classList.contains('show')) {
+            infoBar.classList.remove('show');
+            // 等待动画完成后隐藏元素
+            setTimeout(() => {
+              if (!infoBar.classList.contains('show')) {
+                infoBar.style.display = 'none';
+              }
+            }, 400); // 与 CSS 过渡时间相同
+          }
+        }
+      }
+
+      // 监听地图移动和缩放事件
+      map.on('move', checkView);
+      map.on('zoom', checkView);
+
+      // 初始化时检查一次
+      checkView();
+
+      // 地球图标点击事件 - 回到初始视图
+      const earthButton = document.getElementById('earthButton');
+      earthButton.addEventListener('click', () => {
+        // 回到初始视图：Cocoon Tower 坐标，zoom 1.5
+        map.flyTo({
+          center: cocoonCoord,
+          zoom: 1.5,
+          duration: 2000,
+          curve: 1.42,
+          speed: 1.2
+        });
       });
     </script>
 
