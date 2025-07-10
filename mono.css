@@ -187,7 +187,7 @@
 
 
 .popup-body2 {
-  padding: 1em 2em;
+  padding: 2em 2em 8em 2em;
   overflow-y: auto;
   flex-grow: 1;
 }
