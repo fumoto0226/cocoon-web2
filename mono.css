@@ -160,3 +160,36 @@
 .yasumi-hito.fade-out {
   opacity: 0;
 }
+
+/* 外观/历史 */
+.cocoon-history {
+  font-family: sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.cocoon-history h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.cocoon-history p {
+  margin: 4px 0;
+}
+
+/* 内容滚动部分 */
+.popup-body {
+  padding: 1em;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+
+.popup-body2 {
+  padding: 1em 2em;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+

@@ -111,9 +111,17 @@ const container = document.querySelector('.slash-container');
     item.addEventListener('click', () => {
         const title = item.getAttribute('data-title') || '';
         const content = item.getAttribute('data-content') || '';
+        const label = item.getAttribute('data-label') || '';
 
         popupTitle.textContent = title;
         popupBody.innerHTML = content; // 可以填 HTML 也可以纯文字
+
+        // 根据标签决定使用哪种样式
+        if (label === '建物外観/歴史' || label === '教室') {
+            popupBody.className = 'popup-body2';
+        } else {
+            popupBody.className = 'popup-body';
+        }
 
         popup.style.display = 'block';
         document.body.classList.add('modal-open');
@@ -124,6 +132,8 @@ const container = document.querySelector('.slash-container');
     document.querySelector('.popup-close').addEventListener('click', () => {
     popup.style.display = 'none';
     document.body.classList.remove('modal-open');
+    // 重置样式类
+    popupBody.className = 'popup-body';
     });
     
     // 点击遮罩层关闭弹窗
@@ -131,6 +141,8 @@ const container = document.querySelector('.slash-container');
       if (e.target === popup) {
         popup.style.display = 'none';
         document.body.classList.remove('modal-open');
+        // 重置样式类
+        popupBody.className = 'popup-body';
       }
     });
 // 50楼小游戏///////////////

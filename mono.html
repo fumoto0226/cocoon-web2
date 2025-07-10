@@ -182,13 +182,7 @@
         width: 20px;
         height: 20px;
         }
-
-        /* 内容滚动部分 */
-        .popup-body {
-        padding: 1em;
-        overflow-y: auto;
-        flex-grow: 1;
-        }
+        
 
         /* 禁止选中背景（可选） */
         body.modal-open {
@@ -214,8 +208,14 @@
     <body>
         <!-- 标题 -->
         <div class="title-wrapper">
-            <div class="title">Cocoon Tower</div>
-            <div class="title2">| FACILITIES</div>
+            <div class="title">
+                <span>C</span><span>o</span><span>c</span><span>o</span><span>o</span><span>n</span>
+                <span> </span><span>T</span><span>o</span><span>w</span><span>e</span><span>r</span>
+            </div>
+            <div class="title3">|</div>
+            <div class="title2">
+                <span>F</span><span>a</span><span>c</span><span>i</span><span>l</span><span>i</span><span>t</span><span>i</span><span>e</span><span>s</span>
+            </div>
         </div>
         <a class="arrow left" href="map.html" ><img src="img/arrow02.svg" alt="Left"></a>
         <a class="arrow right" href="hal.html" ><img src="img/arrow02.svg" alt="Right"></a>
@@ -224,14 +224,29 @@
             <div class="slash-container">
                 <div class="slash" 
                     data-img="img/mono01.png" 
-                    data-label="建物外観" 
-                    data-title="建筑外观" 
-                    data-content='<div style="display:flex;align-items:center;">
-                        <img src="img/mono01.png" style="width:120px;margin-right:16px;">
-                        <div>
-                        <h3>建筑外观</h3>
-                        <p>这是建筑外观的详细介绍内容。你可以在这里放图片和文字混排。</p>
-                        </div>
+                    data-label="建物外観/歴史" 
+                    data-content='<div class="cocoon-history">
+                    <img src="img/cocoon1.png" alt="コクーンタワー" style="width:100%; border-radius: 4px; margin-bottom: 16px;">
+
+                    <h3 style="font-weight:bold;">コクーンタワーの歴史</h3>
+
+                    <p><strong>2000年代初頭　→　コクーンタワー建設始まる</strong></p>
+                    <p style="margin-bottom:1em;">
+                        HALの天井は、広くて高くて、スッキリしたデザインになっています。ファンやライト、配管などが見えるのは、かっこよさや機能性を考えてわざとそうしているんですね。教室やホールが明るく快適になるよう工夫された、オシャレで実用的な天井です。
+                    </p>
+
+                    <p><strong>2006年代　→　着工</strong></p>
+                    <p style="margin-bottom:1em;">
+                        旧・新宿スバルビル跡地にて工事がスタートして、地上50階・地下3階という規模で、教育機関専用の超高層ビルとしては世界でも例を見ない構成で作られました。
+                    </p>
+
+                    <p><strong>2008年　→　竣工・開校</strong></p>
+                    <p style="margin-bottom:1em;">
+                        🎖そして珍しい形だから表彰もされました。
+                        <br>
+                        ・世界の高層ビルを評価する「エンポリス・スカイスクレーパー賞2008」にて世界第2位を受賞。<br>
+                        ・教育機関として初の受賞で、世界の注目を集める。
+                    </p>
                     </div>'>
                 <div class="border"></div>
                 </div>
@@ -239,10 +254,59 @@
                 <div class="slash" 
                     data-img="img/mono02.png" 
                     data-label="教室" 
-                    data-title="教室" 
                     data-content='<div>
-                        <img src="img/mono02.png" style="width:100%;">
-                        <p>教室内部环境宽敞明亮，配备现代化教学设施。</p>
+                        <div class="classroom-details" style="font-family:sans-serif; font-size:14px; line-height:1.6; color:#333;">
+
+                        <div style="display:flex; align-items:center; margin-bottom:65px;">
+                            <img src="img/classroom01.png" alt="教室" style="width:320px; height:auto; margin-right:16px;">
+                            <div>
+                            <h3 style="margin:0;">教室</h3>
+                            <p style="margin:4px 0;">
+                                最初は教室です。毎日授業を受ける教室は違います。どうして曜日ごとに違うのかは私も気になっていたが理由はわからないです。
+                            </p>
+                            </div>
+                        </div>
+
+                        <div style="display:flex; align-items:center; margin-bottom:65px;">
+                            <div style="flex:1;">
+                            <h3 style="margin:0;">プロジェクター</h3>
+                            <p style="margin:4px 0;">
+                                これはみんなが知っているパソコンから画面に映せるプロジェクターです。普段はこれを使って授業を受けます。今の世の中には欠かせない代物です。
+                            </p>
+                            </div>
+                            <img src="img/classroom02.png" alt="プロジェクター" style="width:320px; height:auto; margin-left:16px;">
+                        </div>
+
+                        <div style="display:flex; align-items:center; margin-bottom:65px;">
+                            <img src="img/classroom03.png" alt="椅子と机" style="width:320px; height:auto; margin-right:16px;">
+                            <div>
+                            <h3 style="margin:0;">椅子＆机</h3>
+                            <p style="margin:4px 0;">
+                                教室内にある白い天板の机と、背もたれ丸い穴が９つ空いた黒いイスのセット。机とイスは床に固定されており、イスはやや湾曲したデザイン。床はグレーで清潔感がある。
+                            </p>
+                            </div>
+                        </div>
+
+                        <div style="display:flex; align-items:center; margin-bottom:65px;">
+                            <div style="flex:1;">
+                            <h3 style="margin:0;">教壇</h3>
+                            <p style="margin:4px 0;">
+                                教壇とは、講師や発表者が授業やプレゼンテーションを行うために立つ場所で、講義室や教室の前方に設けられた台です。やや高くなっていることもあり、教室全体を見渡しやすいように設計されています。
+                            </p>
+                            </div>
+                            <img src="img/classroom04.png" alt="教壇" style="width:320px; height:auto; margin-left:16px;">
+                        </div>
+
+                        <div style="display:flex; align-items:center;">
+                            <img src="img/classroom05.png" alt="天井" style="width:320px; height:auto; margin-right:16px;">
+                            <div>
+                            <h3 style="margin:0;">天井</h3>
+                            <p style="margin:4px 0;">
+                                <em>HAL</em>の天井は、広くて高くて、スッキリしたデザインになっています。ファンやライト、配管などが見えるのは、かっこよさや機能性を考えてわざとそうしているんです。教室やホールが明るく快適になるよう工夫された、オシャレで実用的な天井です。
+                            </p>
+                            </div>
+                        </div>
+                        </div>
                     </div>'>
                 <div class="border"></div>
                 </div>
@@ -263,9 +327,9 @@
                 <div class="slash" data-img="img/mono05.png" data-label="階段">
                 <div class="border"></div>
                 </div>
-                <div class="slash" data-img="img/mono06.png" data-label="エレベーター">
+                <!-- <div class="slash" data-img="img/mono06.png" data-label="エレベーター">
                 <div class="border"></div>
-                </div>
+                </div> -->
 
                 <div class="slash" data-img="img/mono07.png" data-label="休憩スペース" data-title="お好きな場所でごお休みください。" data-content='
                 <div class="yasumi-wrapper">
@@ -309,9 +373,9 @@
                 <div class="slash" data-img="img/mono09.png" data-label="標識">
                 <div class="border"></div>
                 </div>
-                <div class="slash" data-img="img/mono10.png" data-label="入る学校">
+                <!-- <div class="slash" data-img="img/mono10.png" data-label="入る学校">
                 <div class="border"></div>
-                </div>
+                </div> -->
             </div>
         </div>
         <!-- 背景图 -->
@@ -334,5 +398,6 @@
 
     </body>
     <script src="mono.js"></script>
+    <script src="title-interaction.js"></script>
 
 </html>
