@@ -18,7 +18,7 @@
 
 .title {
   position: relative;
-  font-family: "Bowlby One", Helvetica!important;
+  font-family: 'Bowlby One', 'Hiragino Kaku Gothic ProN', 'Arial', sans-serif;
   font-weight: 400;
   color: #000000;
   font-size: 5.2vw;
@@ -37,7 +37,7 @@
 
 .title2 {
   position: relative;
-  font-family: "Bowlby One", Helvetica!important;
+  font-family: 'Bowlby One', 'Hiragino Kaku Gothic ProN', 'Arial', sans-serif;
   font-weight: 400;
   color: #000000;
   font-size: 2.3vw;

@@ -197,9 +197,7 @@ const container = document.querySelector('.slash-container');
       } else if (currentFloor >= 49.9999999999999 && currentFloor < 49.99999999999999) {
         currentFloor = Math.round((currentFloor + 0.0000000000009) * 100000000000000) / 100000000000000;
         if (currentFloor > 49.99999999999999) currentFloor = 49.99999999999999;
-
-
-      } else if (currentFloor >= 49.9999999999999999 && currentFloor < 50) {
+      } else if (currentFloor >= 49.99999999999999 && currentFloor < 50) {
         currentFloor = 50;
       }
     } else if (delta === -1) {
@@ -248,91 +246,117 @@ const container = document.querySelector('.slash-container');
 
   function checkFloor() {
     if (currentFloor === 50) {
-      // 检查是否已存在图片，避免重复添加
-      if (!document.getElementById('fifty-img')) {
-        const popupContent = document.querySelector('.popup-content');
-        
-        // 创建图片容器 - 使用相对定位，基于popup-content
-        const imgWrapper = document.createElement('div');
-        imgWrapper.id = 'fifty-img-wrapper';
-        imgWrapper.style.position = 'absolute';
-        imgWrapper.style.top = '0';
-        imgWrapper.style.left = '0';
-        imgWrapper.style.width = '100%';
-        imgWrapper.style.height = '100%';
-        imgWrapper.style.zIndex = '100';
-        imgWrapper.style.display = 'flex';
-        imgWrapper.style.alignItems = 'center';
-        imgWrapper.style.justifyContent = 'center';
-        
-        // 创建图片容器 - 相对定位，包含图片和关闭按钮
-        const imgContainer = document.createElement('div');
-        imgContainer.style.position = 'relative';
-        imgContainer.style.display = 'inline-block';
-        imgContainer.style.maxWidth = '78%';
-        imgContainer.style.maxHeight = '90%';
-        
-        // 创建文字元素
-        const textElement = document.createElement('div');
-        textElement.innerHTML = 'やった〜！🎉<br>50階の景色、ついに見えたね！';
-        textElement.style.position = 'absolute';
-        textElement.style.top = '50px';
-        textElement.style.left = '50%';
-        textElement.style.transform = 'translateX(-50%)';
-        textElement.style.color = '#333';
-        textElement.style.fontSize = '16px';
-        textElement.style.fontWeight = 'bold';
-        textElement.style.textAlign = 'center';
-        textElement.style.whiteSpace = 'nowrap';
-        textElement.style.zIndex = '102';
-        textElement.style.opacity = '0';
-        textElement.style.transition = 'opacity 0.8s ease-in-out';
-        
-        // 创建图片
-        const img = document.createElement('img');
-        img.src = 'img/50kai.png';
-        img.id = 'fifty-img';
-        img.style.maxWidth = '100%';
-        img.style.maxHeight = '100%';
-        img.style.display = 'block';
-        img.style.objectFit = 'contain';
-
-        // 创建关闭按钮 - 相对于图片容器定位
-        const closeBtn = document.createElement('button');
-        closeBtn.innerText = '×';
-        closeBtn.style.position = 'absolute';
-        closeBtn.style.top = '15px';
-        closeBtn.style.right = '15px';
-        closeBtn.style.background = 'rgba(0,0,0,0.7)';
-        closeBtn.style.color = '#fff';
-        closeBtn.style.border = 'none';
-        closeBtn.style.fontSize = '20px';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.width = '30px';
-        closeBtn.style.height = '30px';
-        closeBtn.style.borderRadius = '50%';
-        closeBtn.style.display = 'flex';
-        closeBtn.style.alignItems = 'center';
-        closeBtn.style.justifyContent = 'center';
-        closeBtn.style.zIndex = '101';
-        closeBtn.onclick = function() {
-          imgWrapper.remove();
-        };
-        
-        imgContainer.appendChild(textElement);
-        imgContainer.appendChild(img);
-        imgContainer.appendChild(closeBtn);
-        imgWrapper.appendChild(imgContainer);
-        popupContent.appendChild(imgWrapper);
-        
-        // 触发文字动画
-        setTimeout(() => {
-          textElement.style.opacity = '1';
-        }, 100);
-      }
+      showFiftyPopup();
     } else {
       alert("残念！ここは " + currentFloor + " 階です！");
     }
+  }
+
+  function showFiftyPopup() {
+    // 检查是否已存在，避免重复
+    if (document.getElementById('fifty-img-popup')) return;
+
+    // 创建modal遮罩
+    const modal = document.createElement('div');
+    modal.className = 'popup-modal';
+    modal.id = 'fifty-img-popup';
+    modal.style.display = 'block';
+    modal.style.zIndex = 2000;
+
+    // 内容区
+    const content = document.createElement('div');
+    content.className = 'popup-content';
+
+    // 头部
+    const header = document.createElement('div');
+    header.className = 'popup-header';
+
+    // 标题
+    const title = document.createElement('span');
+    title.className = 'popup-title';
+    title.innerText = '50階到達！';
+
+    // 关闭按钮
+    const closeBtn = document.createElement('img');
+    closeBtn.src = 'img/x.svg';
+    closeBtn.className = 'popup-close';
+    closeBtn.alt = 'Close';
+    closeBtn.style.cursor = 'pointer';
+    closeBtn.onclick = () => {
+      modal.remove();
+      document.body.classList.remove('modal-open');
+    };
+
+    header.appendChild(title);
+    header.appendChild(closeBtn);
+
+    // 内容body
+    const body = document.createElement('div');
+    body.className = 'popup-body';
+    body.style.display = 'flex';
+    body.style.flexDirection = 'column';
+    body.style.alignItems = 'center';
+    body.style.justifyContent = 'center';
+
+    // 图片容器
+    const imgWrapper = document.createElement('div');
+    imgWrapper.style.position = 'relative';
+    imgWrapper.style.width = '100%';
+    imgWrapper.style.height = '400px'; // 可根据需要调整高度
+    imgWrapper.style.maxWidth = '100%';
+    imgWrapper.style.overflow = 'hidden';
+
+    // 图片
+    const img = document.createElement('img');
+    img.src = 'img/50kai.png';
+    img.alt = '50階';
+    img.style.width = '100%';
+    img.style.height = '100%';
+    img.style.objectFit = 'cover';
+    img.style.display = 'block';
+    img.style.borderRadius = '8px';
+    img.style.boxShadow = '0 2px 12px rgba(0,0,0,0.12)';
+
+    // 祝贺文字
+    const text = document.createElement('div');
+    text.innerText = 'おめでとう！50階に到達しました！🎉';
+    text.style.position = 'absolute';
+    text.style.top = '50%';
+    text.style.left = '50%';
+    text.style.transform = 'translate(-50%, -50%)';
+    text.style.color = '#fff';
+    text.style.fontSize = '2rem';
+    text.style.fontWeight = 'bold';
+    text.style.textShadow = '0 2px 8px rgba(0,0,0,0.35)';
+    text.style.textAlign = 'center';
+    text.style.fontFamily = "'Hiragino Kaku Gothic ProN', sans-serif";
+    text.style.opacity = '0';
+    text.style.transition = 'opacity 0.8s ease-in-out';
+    text.style.pointerEvents = 'none';
+    text.style.padding = '0 16px';
+
+    // 组装
+    imgWrapper.appendChild(img);
+    imgWrapper.appendChild(text);
+    body.appendChild(imgWrapper);
+    content.appendChild(header);
+    content.appendChild(body);
+    modal.appendChild(content);
+    document.body.appendChild(modal);
+    document.body.classList.add('modal-open');
+
+    // 文字淡入动画
+    setTimeout(() => {
+      text.style.opacity = '1';
+    }, 100);
+
+    // 点击遮罩关闭
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.remove();
+        document.body.classList.remove('modal-open');
+      }
+    });
   }
 
   function gotoFifty() {
@@ -341,20 +365,7 @@ const container = document.querySelector('.slash-container');
   }
 
   // 保证关闭popup时图片也消失
-  const popupCloseBtn = document.querySelector('.popup-close');
-  if (popupCloseBtn) {
-    popupCloseBtn.addEventListener('click', () => {
-      const imgWrapper = document.getElementById('fifty-img-wrapper');
-      if (imgWrapper) imgWrapper.remove();
-    });
-  }
-  popup.addEventListener('click', function(e) {
-    if (e.target === popup) {
-      const imgWrapper = document.getElementById('fifty-img-wrapper');
-      if (imgWrapper) imgWrapper.remove();
-    }
-  });
-// 50楼小游戏结束///////////////
+  // 50楼小游戏结束///////////////
 
 // 动态调整休憩スペース点击区域大小的函数
 function adjustYasumiClickAreas() {
