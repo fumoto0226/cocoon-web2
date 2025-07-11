@@ -192,4 +192,91 @@
   flex-grow: 1;
 }
 
+/* 满员提示弹窗样式 */
+.alert-container {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 10px;
+  z-index: 1000;
+  pointer-events: none;
+}
 
+.alert-box {
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 1px 10px;
+  border-radius: 6px;
+  color: white;
+  min-width: 300px;
+  max-width: 90%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  animation: slideIn 0.4s ease-out forwards;
+  opacity: 1;
+  transform: translateY(100%);
+  transition: opacity 0.4s ease;
+  font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
+}
+
+.alert-box .emoji {
+  font-size: 56px;
+  margin-right: 20px;
+  margin-left: 16px;
+  flex-shrink: 0;
+}
+
+.alert-box .text {
+  display: flex;
+  flex-direction: column;
+}
+
+.alert-box .title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #ffffff;
+}
+
+.alert-box .desc {
+  font-size: 13px;
+  color: #ccc;
+}
+
+/* 滑入动画 */
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+/* 消失时加的 class */
+.alert-fadeout {
+  opacity: 0;
+}
+
+.yasumi-hint {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.734);
+  padding: 8px 32px;
+  border-radius: 5px;
+  z-index: 10;
+  user-select: none;
+  pointer-events: none;
+  font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
+  letter-spacing: 0.05em;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}

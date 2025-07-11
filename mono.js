@@ -404,6 +404,39 @@ document.addEventListener('click', function(e) {
 // 休憩スペース小游戏功能
 let yasumiPeopleCount = 0;
 
+// 满员提示弹窗功能
+function showFullCapacityAlert() {
+  const alertContainer = document.getElementById('alertContainer');
+  
+  // 创建弹窗元素
+  const alertBox = document.createElement('div');
+  alertBox.className = 'alert-box';
+  alertBox.innerHTML = `
+    <div class="emoji">🏆</div>
+    <div class="text">
+      <div class="title">「 満員御礼 」</div>
+      <div class="desc">もう誰も座れない…！？</div>
+    </div>
+  `;
+  
+  // 添加到容器
+  alertContainer.appendChild(alertBox);
+  
+  // 3秒后开始淡出
+  setTimeout(() => {
+    alertBox.classList.add('alert-fadeout');
+    
+    // 4秒后从页面移除
+    setTimeout(() => {
+      if (alertBox.parentNode) {
+        alertBox.parentNode.removeChild(alertBox);
+      }
+    }, 400); // 淡出动画0.4秒后移除
+  }, 3000);
+}
+
+
+
 // 定义每个区域对应的hito图片
 const yasumiAreaHitos = {
   '1': ['img/hito/chong02.png', 'img/hito/masuda04-3.png','img/hito/so04-3.png'],
@@ -424,6 +457,11 @@ const yasumiAreaHitos = {
 // 为休憩スペース点击区域添加事件监听器
 document.addEventListener('click', function(e) {
   if (e.target.classList.contains('yasumi-click-area')) {
+    // 隐藏提示文字
+    const hint = document.getElementById('yasumiHint');
+    if (hint) {
+      hint.style.display = 'none';
+    }
     const area = e.target.getAttribute('data-area');
     
     // 检查该区域是否已经有显示的人物
@@ -437,6 +475,11 @@ document.addEventListener('click', function(e) {
     const countElement = document.getElementById('yasumiPeopleCount');
     if (countElement) {
       countElement.textContent = yasumiPeopleCount;
+    }
+    
+    // 检查是否达到满员状态（10人）
+    if (yasumiPeopleCount === 10) {
+      showFullCapacityAlert();
     }
     
     // 从对应区域的可选图片中随机选择一个

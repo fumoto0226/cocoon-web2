@@ -165,6 +165,7 @@
         overflow: hidden;
         display: flex;
         flex-direction: column;
+        position: relative;
         }
 
         /* 头部区域 */
@@ -334,8 +335,9 @@
                 <div class="slash" data-img="img/mono07.png" data-label="休憩スペース" data-title="お好きな場所でごお休みください。" data-content='
                 <div class="yasumi-wrapper">
                     <img src="img/yasumi.png" class="yasumi-bg" alt="背景图">
+                    <div class="yasumi-hint" id="yasumiHint">休憩スペースが満員になると……何かが起こるかも？</div>
                     <div class="yasumi-counter">今人数：<span id="yasumiPeopleCount">0</span></div>
-                    <!-- 点击区域百分比定位，width/height也用百分比，位置可根据实际图片调整 -->
+                
                     <div class="yasumi-click-area" data-area="1" style="top:40%;left:5.2%;width:9%;height:33%;"></div>
                     <!-- <div class="yasumi-click-area" data-area="2" style="top:41%;left:15%;width:8%;height:33%;"></div> -->
                     <div class="yasumi-click-area" data-area="3" style="top:42%;left:39%;width:8%;height:33%;"></div>
@@ -392,6 +394,8 @@
                 <div class="popup-body" id="popupBody">
                 <!-- 这里是弹窗内容 -->
                 </div>
+                <!-- 满员提示弹窗容器 -->
+                <div class="alert-container" id="alertContainer"></div>
             </div>
         </div>
 
