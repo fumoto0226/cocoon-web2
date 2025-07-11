@@ -222,10 +222,34 @@
 
       // 添加悬停效果
       svgElement.addEventListener('mouseenter', () => {
-        svgElement.style.transform = 'scale(1.1)';
+        svgElement.setAttribute('_hover', '1');
+        if (svgElement.getAttribute('_active') === '1') {
+          svgElement.style.transform = 'scale(0.92)';
+        } else {
+          svgElement.style.transform = 'scale(1.3)';
+        }
       });
-
       svgElement.addEventListener('mouseleave', () => {
+        svgElement.setAttribute('_hover', '0');
+        svgElement.style.transform = 'scale(1)';
+      });
+      // 鼠标按下时变小
+      svgElement.addEventListener('mousedown', () => {
+        svgElement.setAttribute('_active', '1');
+        svgElement.style.transform = 'scale(0.92)';
+      });
+      // 鼠标松开时恢复
+      svgElement.addEventListener('mouseup', () => {
+        svgElement.setAttribute('_active', '0');
+        if (svgElement.getAttribute('_hover') === '1') {
+          svgElement.style.transform = 'scale(1.3)';
+        } else {
+          svgElement.style.transform = 'scale(1)';
+        }
+      });
+      svgElement.addEventListener('mouseleave', () => {
+        svgElement.setAttribute('_hover', '0');
+        svgElement.setAttribute('_active', '0');
         svgElement.style.transform = 'scale(1)';
       });
 

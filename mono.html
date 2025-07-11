@@ -256,7 +256,7 @@
                     data-img="img/mono02.png" 
                     data-label="教室" 
                     data-content='<div>
-                        <div class="classroom-details" style="font-family:sans-serif; font-size:14px; line-height:1.6; color:#333;">
+                        <div class="50-details" style="font-family:sans-serif; font-size:14px; line-height:1.6; color:#333;">
 
                         <div style="display:flex; align-items:center; margin-bottom:65px;">
                             <img src="img/classroom01.png" alt="教室" style="width:320px; height:auto; margin-right:16px;">
@@ -336,7 +336,7 @@
                 <div class="yasumi-wrapper">
                     <img src="img/yasumi.png" class="yasumi-bg" alt="背景图">
                     <div class="yasumi-hint" id="yasumiHint">休憩スペースが満員になると……何かが起こるかも？</div>
-                    <div class="yasumi-counter">今人数：<span id="yasumiPeopleCount">0</span></div>
+                    <div class="yasumi-counter">今人数：<span id="yasumiPeopleCount">0</span>/10</div>
                 
                     <div class="yasumi-click-area" data-area="1" style="top:40%;left:5.2%;width:9%;height:33%;"></div>
                     <!-- <div class="yasumi-click-area" data-area="2" style="top:41%;left:15%;width:8%;height:33%;"></div> -->
@@ -397,6 +397,66 @@
                 <!-- 满员提示弹窗容器 -->
                 <div class="alert-container" id="alertContainer"></div>
             </div>
+        </div>
+
+        <!-- 50楼专用popup -->
+        <div class="popup-modal" id="fifty-img-popup" style="display: none; z-index: 2000;">
+          <div class="popup-content">
+            <div class="popup-header">
+              <span class="popup-title">50階到達！</span>
+              <img src="img/x.svg" class="popup-close" alt="Close" style="cursor:pointer;">
+            </div>
+            <div class="popup-body">
+              <div style="position:relative;">
+                <img src="img/50kai.png" alt="50階" style="width:100%; max-width:100%; display:block; border-radius:8px; margin-bottom:32px;">
+                <div id="fifty-popup-text" class="fifty-img-text">おめでとう！50階に到達しました！🎉</div>
+              </div>
+              <div class="fifty-extra-title fifty-fade-block" style="margin: 240px 0 240px 0; font-size: 20px; font-weight: bold; text-align: center;">
+                ここからは、どんな景色が見えるのかな？
+              </div>
+              <div class="classroom-details" style="font-family:sans-serif; font-size:14px; line-height:1.6; color:#333; ">
+                <div class="fifty-fade-block" style="display:flex; align-items:center; margin-bottom:160px;">
+                  <img src="img/50-01.png" alt="代々木会館" style="width:350px; height:auto; margin-right:16px; margin-left:16px;">
+                  <div class="fifty-text-block">
+                    <h3 style="margin:0;">代々木会館</h3>
+                    <p style="margin:4px 0;">代々木会館は、東京都渋谷区にあった古い雑居ビルで、1960年代に建てられました。飲食店や住居、オフィスなどが入るビルでしたが、老朽化が進み、次第に空き店舗が増えていきました。独特な外観と雰囲気から「東京の九龍城」とも呼ばれ、写真スポットとしても人気でした。2022年ごろから再開発のため取り壊され、現在は新しいビルの建設が進んでいます。昭和の面影を残す、記憶に残る建物でした。</p>
+                  </div>
+                </div>
+                <div class="fifty-fade-block" style="display:flex; align-items:center; margin-bottom:160px;">
+                  <div style="flex:1;">
+                    <div class="fifty-text-block">
+                      <h3 style="margin:0;">新宿御苑</h3>
+                      <p style="margin:4px 0;">新宿御苑は、東京都新宿区と渋谷区にまたがる広大な庭園です。もともとは江戸時代の大名屋敷の庭として作られ、明治時代には皇室の御料地となり、現在は国民公園として一般に公開されています。園内には日本庭園、フランス式整形庭園、イギリス風景式庭園などがあり、四季折々の自然が楽しめます。特に春の桜の名所として有名で、多くの花見客でにぎわいます。都会の中心にありながら、静かで落ち着いた空間が広がる癒しの場所です。</p>
+                    </div>
+                  </div>
+                  <img src="img/50-02.png" alt="新宿御苑" style="width:350px; height:auto; margin-right:16px; margin-left:16px;">
+                </div>
+                <div class="fifty-fade-block" style="display:flex; align-items:center; margin-bottom:160px;">
+                  <img src="img/50-03.png" alt="歌舞伎町" style="width:350px; height:auto; margin-right:16px; margin-left:16px;">
+                  <div class="fifty-text-block">
+                    <h3 style="margin:0;">歌舞伎町</h3>
+                    <p style="margin:4px 0;">歌舞伎町は、東京都新宿区にある日本最大級の歓楽街で、「眠らない街」として知られています。ネオンがきらめく通りには、飲食店、バー、カラオケ、映画館、ホストクラブ、風俗店など多種多様な店舗が立ち並び、夜遅くまで多くの人でにぎわっています。治安の面で注意が必要な場所でもありますが、近年では観光地としても人気があり、外国人観光客にもよく知られています。新宿のエネルギーと混沌が集まる、個性あふれるエリアです。</p>
+                  </div>
+                </div>
+                <div class="fifty-fade-block" style="display:flex; align-items:center; margin-bottom:160px;">
+                  <div style="flex:1;">
+                    <div class="fifty-text-block">
+                      <h3 style="margin:0;">通風口</h3>
+                      <p style="margin:4px 0;">こちらは新宿駅西口にある「新宿駅西口広場地下駐車場」の通風口です。地下にある大規模な駐車場の換気を行うために設けられた構造で、上から見ると大きな筒状の穴が開いています。内側はコンクリートの壁面となっており、外側は植物で覆われていて、都市景観と調和するよう工夫されています。大きなものは排気用、小さなものは給気や非常口の役割を持っていると考えられます。周囲には白い土のうが設置されており、雨水の流入防止や安全対策も施されています。このように、機能性とデザイン性を兼ね備えた都市設備として、高い評価を受けています。</p>
+                    </div>
+                  </div>
+                  <img src="img/50-04.png" alt="通風口" style="width:350px; height:auto; margin-right:16px; margin-left:16px;">
+                </div>
+                <div class="fifty-fade-block" style="display:flex; align-items:center; margin-bottom:140px;">
+                  <img src="img/50-05.png" alt="新宿駅東口" style="width:350px; height:auto; margin-right:16px; margin-left:16px;">
+                  <div class="fifty-text-block">
+                    <h3 style="margin:0;">新宿駅東口</h3>
+                    <p style="margin:4px 0;">新宿駅東口は、東京で最もにぎやかなエリアのひとつとして知られています。駅を出るとすぐに、百貨店やファッションビル、飲食店が立ち並び、多くの人でにぎわいます。特に、アルタビル前の広場は待ち合わせ場所として有名で、観光客にも人気です。また、東口の「クロス新宿ビジョン」では、立体的な3D猫の映像が話題となり、新たな観光スポットとなっています。夜になるとネオンが輝き、昼とはまた違った表情を見せる東口は、ショッピングからエンタメまで楽しめるエリアです。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
 

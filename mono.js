@@ -253,110 +253,35 @@ const container = document.querySelector('.slash-container');
   }
 
   function showFiftyPopup() {
-    // 检查是否已存在，避免重复
-    if (document.getElementById('fifty-img-popup')) return;
-
-    // 创建modal遮罩
-    const modal = document.createElement('div');
-    modal.className = 'popup-modal';
-    modal.id = 'fifty-img-popup';
+    const modal = document.getElementById('fifty-img-popup');
+    if (!modal) return;
     modal.style.display = 'block';
-    modal.style.zIndex = 2000;
-
-    // 内容区
-    const content = document.createElement('div');
-    content.className = 'popup-content';
-
-    // 头部
-    const header = document.createElement('div');
-    header.className = 'popup-header';
-
-    // 标题
-    const title = document.createElement('span');
-    title.className = 'popup-title';
-    title.innerText = '50階到達！';
-
-    // 关闭按钮
-    const closeBtn = document.createElement('img');
-    closeBtn.src = 'img/x.svg';
-    closeBtn.className = 'popup-close';
-    closeBtn.alt = 'Close';
-    closeBtn.style.cursor = 'pointer';
-    closeBtn.onclick = () => {
-      modal.remove();
-      document.body.classList.remove('modal-open');
-    };
-
-    header.appendChild(title);
-    header.appendChild(closeBtn);
-
-    // 内容body
-    const body = document.createElement('div');
-    body.className = 'popup-body';
-    body.style.display = 'flex';
-    body.style.flexDirection = 'column';
-    body.style.alignItems = 'center';
-    body.style.justifyContent = 'center';
-
-    // 图片容器
-    const imgWrapper = document.createElement('div');
-    imgWrapper.style.position = 'relative';
-    imgWrapper.style.width = '100%';
-    imgWrapper.style.height = '400px'; // 可根据需要调整高度
-    imgWrapper.style.maxWidth = '100%';
-    imgWrapper.style.overflow = 'hidden';
-
-    // 图片
-    const img = document.createElement('img');
-    img.src = 'img/50kai.png';
-    img.alt = '50階';
-    img.style.width = '100%';
-    img.style.height = '100%';
-    img.style.objectFit = 'cover';
-    img.style.display = 'block';
-    img.style.borderRadius = '8px';
-    img.style.boxShadow = '0 2px 12px rgba(0,0,0,0.12)';
-
-    // 祝贺文字
-    const text = document.createElement('div');
-    text.innerText = 'おめでとう！50階に到達しました！🎉';
-    text.style.position = 'absolute';
-    text.style.top = '50%';
-    text.style.left = '50%';
-    text.style.transform = 'translate(-50%, -50%)';
-    text.style.color = '#fff';
-    text.style.fontSize = '2rem';
-    text.style.fontWeight = 'bold';
-    text.style.textShadow = '0 2px 8px rgba(0,0,0,0.35)';
-    text.style.textAlign = 'center';
-    text.style.fontFamily = "'Hiragino Kaku Gothic ProN', sans-serif";
-    text.style.opacity = '0';
-    text.style.transition = 'opacity 0.8s ease-in-out';
-    text.style.pointerEvents = 'none';
-    text.style.padding = '0 16px';
-
-    // 组装
-    imgWrapper.appendChild(img);
-    imgWrapper.appendChild(text);
-    body.appendChild(imgWrapper);
-    content.appendChild(header);
-    content.appendChild(body);
-    modal.appendChild(content);
-    document.body.appendChild(modal);
     document.body.classList.add('modal-open');
-
     // 文字淡入动画
     setTimeout(() => {
-      text.style.opacity = '1';
+      const text = document.getElementById('fifty-popup-text');
+      if (text) text.style.opacity = '1';
     }, 100);
-
-    // 点击遮罩关闭
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) {
-        modal.remove();
+    // 关闭按钮
+    const closeBtn = modal.querySelector('.popup-close');
+    if (closeBtn) {
+      closeBtn.onclick = () => {
+        modal.style.display = 'none';
         document.body.classList.remove('modal-open');
+        // 文字淡出
+        const text = document.getElementById('fifty-popup-text');
+        if (text) text.style.opacity = '0';
+      };
+    }
+    // 点击遮罩关闭
+    modal.onclick = function(e) {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        document.body.classList.remove('modal-open');
+        const text = document.getElementById('fifty-popup-text');
+        if (text) text.style.opacity = '0';
       }
-    });
+    };
   }
 
   function gotoFifty() {
@@ -534,3 +459,41 @@ document.addEventListener('click', function(e) {
    
   }
 });
+
+// 50楼到达页渐显动画
+function handleFiftyFadeBlocks() {
+  const popup = document.getElementById('fifty-img-popup');
+  if (!popup) return;
+  const popupBody = popup.querySelector('.popup-body');
+  if (!popupBody) return;
+  const blocks = popupBody.querySelectorAll('.fifty-fade-block');
+  const bodyRect = popupBody.getBoundingClientRect();
+  const bodyTop = bodyRect.top;
+  const bodyHeight = bodyRect.height;
+  const bodyCenter = bodyTop + bodyHeight / 2;
+  blocks.forEach(block => {
+    if (block.classList.contains('faded')) return; // 只执行一次渐显
+    const rect = block.getBoundingClientRect();
+    const blockCenter = rect.top + rect.height / 2;
+    // 判断块的中心是否接近内容区中心
+    if (Math.abs(blockCenter - bodyCenter) < rect.height / 3) {
+      block.classList.add('faded'); // 添加faded类，渐显
+    }
+  });
+}
+// 监听50楼popup内容区滚动
+function setupFiftyFadeBlocksScroll() {
+  const popup = document.getElementById('fifty-img-popup');
+  if (!popup) return;
+  const popupBody = popup.querySelector('.popup-body');
+  if (!popupBody) return;
+  popupBody.addEventListener('scroll', handleFiftyFadeBlocks, { passive: true });
+  // 初次弹窗显示时也触发一次
+  handleFiftyFadeBlocks();
+}
+// 在showFiftyPopup中弹窗显示后调用setupFiftyFadeBlocksScroll
+const oldShowFiftyPopup = window.showFiftyPopup;
+window.showFiftyPopup = function() {
+  if (oldShowFiftyPopup) oldShowFiftyPopup();
+  setupFiftyFadeBlocksScroll();
+};
