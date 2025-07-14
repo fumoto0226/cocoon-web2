@@ -112,7 +112,7 @@ function renderQuestion() {
   const q = questions[currentIndex];
   zbPopup.innerHTML = `
     <div class="zb-score">総得点：${score}</div>
-    <div class="zb-question">Cocoon Towerはどっち?</div>
+    <div class="zb-question">Cocoon Towerはどの方向にあるかな？</div>
     <div class="zb-row">
       <div class="zb-buttons">
         <button class="zb-button left" id="zb-btn-left"><img src="img/zbButton-l.svg" alt="左"></button>
