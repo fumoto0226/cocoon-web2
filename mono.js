@@ -592,7 +592,7 @@ const quizData = [
     ]
   },
   {
-    question: 'コクーンタワーの椅子は、どれですか？',
+    question: 'コクーンタワーの掃除用具置き場は、どれですか？',
     options: [
       { 
         img: 'img/koko05-1.png', 
@@ -609,7 +609,7 @@ const quizData = [
     ]
   },
   {
-    question: 'コクーンタワーの椅子は、どれですか？',
+    question: 'コクーンタワーの消火器は、どれですか？',
     options: [
       { 
         img: 'img/koko06-1.png', 
