@@ -69,7 +69,7 @@ const questions = [
     leftImg: "img/zb08-l.png",
     rightImg: "img/zb08-r.png",
     place: "SOMPO美術館",
-    time: "徒歩5分",
+    time: "徒歩1分",
     description: "SOMPO美術館は「ひまわり」で有名なゴッホの絵画を所蔵することで知られています。近代から現代までの国内外の名作を展示し、静かな空間でアートを楽しめるスポットです。建物は白く丸みのあるデザインが特徴的です。",
   },
   {
