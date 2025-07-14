@@ -125,6 +125,29 @@ const container = document.querySelector('.slash-container');
 
         popup.style.display = 'block';
         document.body.classList.add('modal-open');
+        
+        // 如果是公共设施，初始化Quiz游戏
+        if (label === '公共施設') {
+            setTimeout(() => {
+                initQuizGame();
+            }, 100);
+        }
+        // 如果是周辺，动态加载slash-popup.js并初始化slash游戏
+        if (label === '周辺') {
+            setTimeout(() => {
+                if (!window.slashPopupLoaded) {
+                    const script = document.createElement('script');
+                    script.src = 'slash-popup.js';
+                    script.onload = () => {
+                        window.slashPopupLoaded = true;
+                        if (typeof window.renderSlashGame === 'function') window.renderSlashGame();
+                    };
+                    document.body.appendChild(script);
+                } else {
+                    if (typeof window.renderSlashGame === 'function') window.renderSlashGame();
+                }
+            }, 100);
+        }
     });
     });
 
@@ -358,7 +381,7 @@ function showFullCapacityAlert() {
   // 添加到容器
   alertContainer.appendChild(alertBox);
   
-  // 3秒后开始淡出
+  // 4.5秒后开始淡出
   setTimeout(() => {
     alertBox.classList.add('alert-fadeout');
     
@@ -367,8 +390,8 @@ function showFullCapacityAlert() {
       if (alertBox.parentNode) {
         alertBox.parentNode.removeChild(alertBox);
       }
-    }, 400); // 淡出动画0.4秒后移除
-  }, 3000);
+    }, 1000); // 淡出动画1秒后移除
+  }, 4000);
 }
 
 
@@ -497,3 +520,270 @@ window.showFiftyPopup = function() {
   if (oldShowFiftyPopup) oldShowFiftyPopup();
   setupFiftyFadeBlocksScroll();
 };
+
+// Quiz 游戏数据
+const quizData = [
+  {
+    question: 'コクーンタワーの自動販売機って、どれですか？',
+    options: [
+      { 
+        img: 'img/koko01-1.png', 
+        correct: true, 
+        title: 'コクーンタワーの自動販売機',
+        desc: 'こちらがコクーンタワー内の正しい自動販売機です。学生や教職員が利用できる便利な設備で、飲み物を購入できます。'
+      },
+      { 
+        img: 'img/koko01-2.png', 
+        correct: false, 
+        title: '地下鉄の自動販売機',
+        desc: 'こちらはコクーンタワーとは地下鉄にある自動販売機です。外観が似ていますが、設置場所が異なります。'
+      }
+    ]
+  },
+  {
+    question: 'コクーンタワーのエレベーターは、どれですか？',
+    options: [
+      { 
+        img: 'img/koko02-1.png', 
+        correct: false, 
+        title: '他のビルのエレベーター',
+        desc: 'コクーンタワー以外の建物にある一般的なエレベーターです。壁のデザインやボタン配置が異なります。'
+      },
+      { 
+        img: 'img/koko02-2.png', 
+        correct: true, 
+        title: 'コクーンタワーのエレベーター',
+        desc: 'こちらがコクーンタワー内の正しいエレベーターです。銀色のドット模様の内装が特徴、50階建てのビルを効率的に移動できる重要な設備です。'
+      }
+    ]
+  },
+  {
+    question: 'コクーンタワーの階段は、どれですか？',
+    options: [
+      { 
+        img: 'img/koko03-1.png', 
+        correct: true, 
+        title: 'コクーンタワーの階段',
+        desc: 'こちらがコクーンタワー内の正しい階段です。緊急時や運動不足解消に利用できる重要な避難経路です。'
+      },
+      { 
+        img: 'img/koko03-2.png', 
+        correct: false, 
+        title: '他の建物の階段',
+        desc: 'こちらはコクーンタワーとは別の建物にある階段です。構造が似ていますが、設置場所が異なります。'
+      }
+    ]
+  },
+  {
+    question: 'コクーンタワーの椅子は、どれですか？',
+    options: [
+      { 
+        img: 'img/koko04-1.png', 
+        correct: false, 
+        title: 'サイゼリヤの椅子',
+        desc: '飲食チェーン「サイゼリヤ」で使用されているデザイン性のある椅子です。コクーンタワーとは関係ありません。'
+      },
+      { 
+        img: 'img/koko04-2.png', 
+        correct: true, 
+        title: 'コクーンタワーの椅子',
+        desc: 'コクーンタワー校内の共有スペースに置かれている椅子です。近未来的なデザインが特徴です。'
+      }
+    ]
+  },
+  {
+    question: 'コクーンタワーの椅子は、どれですか？',
+    options: [
+      { 
+        img: 'img/koko05-1.png', 
+        correct: false, 
+        title: '地下鉄の掃除用具置き場',
+        desc: '地下鉄の駅構内で見られる清掃用具です。大型の機械などが雑多に置かれています。'
+      },
+      { 
+        img: 'img/koko05-2.png', 
+        correct: true, 
+        title: 'コクーンタワーの掃除用具置き場',
+        desc: '整理整頓された掃除用具置き場です。清潔感があり、場所もわかりやすく設計されています。'
+      }
+    ]
+  },
+  {
+    question: 'コクーンタワーの椅子は、どれですか？',
+    options: [
+      { 
+        img: 'img/koko06-1.png', 
+        correct: true, 
+        title: 'コクーンタワーの消火器',
+        desc: 'コクーンタワーの廊下に設置された消火器です。壁にしっかりと収納されており、安全対策が施されています。'
+      },
+      { 
+        img: 'img/koko06-2.png', 
+        correct: false, 
+        title: '道ばたの猫',
+        desc: 'どこにでもいそうな猫です。コクーンタワーとは関係ありませんが、可愛いので掲載してみました。'
+      }
+    ]
+  },
+];
+
+// Quiz 游戏状态
+let currentQuestionIndex = 0;
+let userAnswers = [];
+let quizInitialized = false;
+
+// 初始化Quiz游戏
+function initQuizGame() {
+  if (quizInitialized) return;
+  
+  currentQuestionIndex = 0;
+  userAnswers = [];
+  quizInitialized = true;
+  
+  showQuestion(currentQuestionIndex);
+  
+  // 添加点击事件
+  const choices = document.querySelectorAll('.choice');
+  choices.forEach(choice => {
+    choice.addEventListener('click', handleChoiceClick);
+  });
+}
+
+// 显示问题
+function showQuestion(index) {
+  if (index >= quizData.length) {
+    showResults();
+    return;
+  }
+  
+  const question = quizData[index];
+  const quizQuestion = document.getElementById('quizQuestion');
+  const choices = document.querySelectorAll('.choice');
+  
+  quizQuestion.textContent = question.question;
+  
+  choices.forEach((choice, i) => {
+    choice.src = question.options[i].img;
+    choice.dataset.answer = question.options[i].correct;
+  });
+  
+  // 重置样式
+  document.querySelectorAll('.choice-wrapper').forEach(wrapper => {
+    wrapper.classList.remove('correct', 'wrong');
+  });
+  
+  document.querySelectorAll('.choice-result').forEach(result => {
+    result.textContent = '';
+  });
+}
+
+// 处理选择点击
+function handleChoiceClick(e) {
+  const choice = e.target;
+  const wrapper = choice.closest('.choice-wrapper');
+  const result = wrapper.querySelector('.choice-result');
+  const isCorrect = choice.dataset.answer === 'true';
+  
+  // 记录用户答案
+  userAnswers.push({
+    questionIndex: currentQuestionIndex,
+    selectedAnswer: choice.dataset.answer === 'true' ? 0 : 1,
+    isCorrect: isCorrect
+  });
+  
+  // 显示结果
+  if (isCorrect) {
+    wrapper.classList.add('correct');
+    result.textContent = '正解！';
+  } else {
+    wrapper.classList.add('wrong');
+    result.textContent = '残念！';
+  }
+  
+  // 禁用点击
+  document.querySelectorAll('.choice').forEach(c => {
+    c.style.pointerEvents = 'none';
+  });
+  
+  // 0.6秒后下一题
+  setTimeout(() => {
+    currentQuestionIndex++;
+    showQuestion(currentQuestionIndex);
+    
+    // 重新启用点击
+    document.querySelectorAll('.choice').forEach(c => {
+      c.style.pointerEvents = 'auto';
+    });
+  }, 600);
+}
+
+// 显示结果页面
+function showResults() {
+  const quizContent = document.getElementById('quizContent');
+  const quizResult = document.getElementById('quizResult');
+  
+  quizContent.style.display = 'none';
+  quizResult.style.display = 'block';
+  
+  // 生成结果内容
+  let resultHTML = '<h2 style="text-align: center; margin-bottom: 30px; color: #333;"></h2>';
+  
+  userAnswers.forEach((answer, index) => {
+    const question = quizData[index];
+    const selectedOption = question.options[answer.selectedAnswer];
+    const correctOption = question.options.find(opt => opt.correct);
+    
+    const isCorrect = answer.isCorrect;
+    const displayOption = isCorrect ? correctOption : selectedOption;
+    
+    resultHTML += `
+      <div class="result-item">
+        <img src="${displayOption.img}" alt="${displayOption.title}">
+        <div class="result-text">
+          <div class="${isCorrect ? 'correct-badge' : 'wrong-badge'}">
+            ${isCorrect ? '正解' : '不正解'}
+          </div>
+          <h3>${displayOption.title}</h3>
+          <p>${displayOption.desc}</p>
+        </div>
+      </div>
+    `;
+  });
+  
+  quizResult.innerHTML = resultHTML;
+}
+
+// 重置Quiz状态
+function resetQuiz() {
+  quizInitialized = false;
+  currentQuestionIndex = 0;
+  userAnswers = [];
+  
+  const quizContent = document.getElementById('quizContent');
+  const quizResult = document.getElementById('quizResult');
+  
+  if (quizContent) quizContent.style.display = 'block';
+  if (quizResult) quizResult.style.display = 'none';
+}
+
+// 弹窗关闭时重置Quiz
+const oldCloseBtn = document.querySelector('.popup-close');
+if (oldCloseBtn) {
+  const originalClickHandler = oldCloseBtn.onclick;
+  oldCloseBtn.addEventListener('click', () => {
+    resetQuiz();
+    if (originalClickHandler) originalClickHandler();
+  });
+}
+
+const oldPopup = document.getElementById('popup');
+if (oldPopup) {
+  const originalClickHandler = oldPopup.onclick;
+  oldPopup.addEventListener('click', function(e) {
+    if (e.target === this) {
+      resetQuiz();
+    }
+    if (originalClickHandler) originalClickHandler.call(this, e);
+  });
+}
+

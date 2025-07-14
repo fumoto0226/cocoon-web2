@@ -314,20 +314,36 @@
 
                 <div class="slash" 
                     data-img="img/mono03.png" 
-                    data-label="掃除用具置き場" 
-                    data-title="掃除用具置き場" 
-                    data-content='<div>
-                        <h3>点击下方按钮体验小游戏</h3>
-                        <button onclick="alert(&#39;你赢了！&#39;)">点我</button>
+                    data-label="公共施設" 
+                    data-title="" 
+                    data-content='<div class="quiz-container">
+                        <div class="quiz-content" id="quizContent">
+                            <h2 id="quizQuestion">コクーンタワーの自動販売機って、どれですか？</h2>
+                            <div class="options">
+                                <div class="choice-wrapper">
+                                    <img class="choice" data-answer="true" src="img/koko01-1.png" alt="選択肢1">
+                                    <div class="choice-overlay"></div>
+                                    <div class="choice-result"></div>
+                                </div>
+                                <div class="choice-wrapper">
+                                    <img class="choice" data-answer="false" src="img/koko01-2.png" alt="選択肢2">
+                                    <div class="choice-overlay"></div>
+                                    <div class="choice-result"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="quiz-result" id="quizResult" style="display: none;">
+                            <!-- 结果页面内容将动态生成 -->
+                        </div>
                     </div>'>
                 <div class="border"></div>
                 </div>
                 <!-- <div class="slash" data-img="img/mono04.png" data-label="トイレ">
                 <div class="border"></div>
                 </div> -->
-                <div class="slash" data-img="img/mono05.png" data-label="階段">
+                <!-- <div class="slash" data-img="img/mono05.png" data-label="階段">
                 <div class="border"></div>
-                </div>
+                </div> -->
                 <!-- <div class="slash" data-img="img/mono06.png" data-label="エレベーター">
                 <div class="border"></div>
                 </div> -->
@@ -378,6 +394,8 @@
                 <!-- <div class="slash" data-img="img/mono10.png" data-label="入る学校">
                 <div class="border"></div>
                 </div> -->
+                <div class="slash" data-img="img/mono11.png" data-label="周辺" data-content='<div id="zb-popup"></div>'>
+                <div class="border"></div>
             </div>
         </div>
         <!-- 背景图 -->
@@ -411,7 +429,7 @@
                 <img src="img/50kai.png" alt="50階" style="width:100%; max-width:100%; display:block; border-radius:8px; margin-bottom:32px;">
                 <div id="fifty-popup-text" class="fifty-img-text">おめでとう！50階に到達しました！🎉</div>
               </div>
-              <div class="fifty-extra-title fifty-fade-block" style="margin: 240px 0 240px 0; font-size: 20px; font-weight: bold; text-align: center;">
+              <div class="fifty-extra-title fifty-fade-block" style="margin: 300px 0 300px 0; font-size: 20px; font-weight: bold; text-align: center;">
                 ここからは、どんな景色が見えるのかな？
               </div>
               <div class="classroom-details" style="font-family:sans-serif; font-size:14px; line-height:1.6; color:#333; ">

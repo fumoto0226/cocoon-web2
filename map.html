@@ -297,10 +297,12 @@
       // 地球图标点击事件 - 回到初始视图
       const earthButton = document.getElementById('earthButton');
       earthButton.addEventListener('click', () => {
-        // 回到初始视图：Cocoon Tower 坐标，zoom 1.5
+        // 回到初始视图：Cocoon Tower 坐标，zoom 1.5，bearing 0，pitch 0
         map.flyTo({
           center: cocoonCoord,
           zoom: 1.5,
+          bearing: 0,
+          pitch: 0,
           duration: 2000,
           curve: 1.42,
           speed: 1.2
